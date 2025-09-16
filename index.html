@@ -1,18 +1,30 @@
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>CryptoDashboard</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <script src="script.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crypto Dashboard</title>
 </head>
+<body>
+  <h1>Crypto Dashboard</h1>
+  <p>Top 10 cryptocurrencies (live from CoinGecko)</p>
 
-<body> 
-  <header>
-    <h1>Crypto Dashboard</h1>
-  </header>
-  <section id="cryptodashboard"></section>
+  <table id="coins" border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Coin</th>
+        <th>Price (USD)</th>
+        <th>24h %</th>
+        <th>Market Cap</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be inserted here by script.js -->
+    </tbody>
+  </table>
+
+  <!-- Link to your script -->
+  <script src="script.js"></script>
 </body>
 </html>
