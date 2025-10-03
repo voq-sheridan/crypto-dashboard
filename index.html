@@ -3,28 +3,322 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Crypto Dashboard</title>
+  <title>FX Peek — Frankfurter API Demo</title>
+  <style>
+    :root { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; line-height: 1.4; }
+    body { margin: 0; background: #0e0f12; color: #e6e6e6; }
+    header { padding: 20px; background: #151821; border-bottom: 1px solid #232633; }
+    main { padding: 24px; max-width: 1000px; margin: 0 auto; }
+    h1 { font-size: 1.4rem; margin: 0 0 6px; }
+    p.sub { margin: 0; color: #9aa3b2; }
+    .card { background: #151821; border: 1px solid #232633; border-radius: 14px; padding: 16px; }
+    .grid { display: grid; gap: 16px; }
+    @media (min-width: 920px) { .grid-2 { grid-template-columns: 1.1fr 1fr; } }
+    label { display:block; font-size: .9rem; color:#b8c2d8; margin-bottom: 6px; }
+    input, select, button {
+      width: 100%; padding: 10px 12px; border-radius: 10px; border:1px solid #2a2f3d;
+      background:#0f1219; color:#e6e6e6; outline: none;
+    }
+    button { background:#2b61ff; border:0; cursor:pointer; font-weight:600;}
+    button:disabled { opacity:.6; cursor:not-allowed; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    .muted { color:#9aa3b2; }
+    table { width:100%; border-collapse: collapse; font-size:.95rem; }
+    th, td { padding:10px 8px; border-bottom:1px solid #232633; text-align:left; }
+    th { color:#b8c2d8; font-weight:600; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#0f1219; border:1px solid #2a2f3d; padding:2px 6px; border-radius:6px; }
+    .stack { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .pill { font-size:.75rem; padding:4px 8px; border-radius:12px; background:#0f1219; border:1px solid #2a2f3d; color:#9aa3b2; }
+    canvas { display:block; width:100%; height:240px; background: #10131a; border-radius: 12px; }
+    footer { color:#9aa3b2; font-size:.9rem; margin-top: 20px; }
+    a { color:#9bc1ff; }
+  </style>
 </head>
 <body>
-  <h1>Crypto Dashboard</h1>
-  <p>Top 10 cryptocurrencies (live from CoinGecko)</p>
+  <header>
+    <h1>FX Peek</h1>
+    <p class="sub">Interactive currency rates with the Frankfurter API</p>
+  </header>
 
-  <table id="coins" border="1" cellpadding="5">
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Coin</th>
-        <th>Price (USD)</th>
-        <th>24h %</th>
-        <th>Market Cap</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Data will be inserted here by script.js -->
-    </tbody>
-  </table>
+  <main class="grid grid-2">
+    <!-- LEFT: controls + results -->
+    <section class="card" aria-labelledby="convert-heading">
+      <h2 id="convert-heading" style="margin-top:0">Convert</h2>
+      <form id="convert-form" class="grid" autocomplete="off">
+        <div class="row">
+          <div>
+            <label for="amount">Amount</label>
+            <input id="amount" name="amount" type="number" step="0.01" min="0" value="100" required />
+          </div>
+          <div>
+            <label for="base">From</label>
+            <select id="base" name="base" required></select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="quote">To</label>
+            <select id="quote" name="quote" required></select>
+          </div>
+          <div>
+            <label>&nbsp;</label>
+            <button id="swap" type="button" aria-label="Swap currencies">Swap ↔</button>
+          </div>
+        </div>
+        <button id="convert-btn" type="submit">Convert</button>
+      </form>
 
-  <!-- Link to your script -->
-  <script src="script.js"></script>
+      <div id="result" style="margin-top:14px;">
+        <div class="stack">
+          <span class="pill" id="meta-date">—</span>
+          <span class="pill" id="meta-source">Source: Frankfurter API</span>
+        </div>
+        <h3 id="headline" style="margin:10px 0 0 0">—</h3>
+        <p class="muted" id="subline">—</p>
+      </div>
+    </section>
+
+    <!-- RIGHT: rates table -->
+    <section class="card" aria-labelledby="rates-heading">
+      <h2 id="rates-heading" style="margin-top:0">Snapshot (All Rates vs Base)</h2>
+      <p class="muted">Shows current rates for the selected base. Use the search box to filter.</p>
+      <input id="filter" type="search" placeholder="Filter by code or currency name (e.g., usd, yen)" aria-label="Filter rates" />
+      <div style="max-height: 320px; overflow:auto; margin-top:8px;">
+        <table id="rates-table">
+          <thead><tr><th>Currency</th><th>Code</th><th>Rate</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FULL-WIDTH: history -->
+    <section class="card" style="grid-column: 1 / -1" aria-labelledby="history-heading">
+      <h2 id="history-heading" style="margin-top:0">7-Day History</h2>
+      <p class="muted">Simple line chart drawn on <span class="kbd">&lt;canvas&gt;</span> — one series at a time.</p>
+      <canvas id="history" height="240" role="img" aria-label="7 day exchange rate history"></canvas>
+    </section>
+
+    <footer>Tips: Press <span class="kbd">/</span> to focus filter. Press <span class="kbd">S</span> to swap currencies. Keyboard accessible form elements throughout.</footer>
+  </main>
+
+  <script>
+    // ====== CONFIG ======
+    const API = "https://api.frankfurter.dev/v1"; // (Frankfurter docs use .app or .dev; this works for student projects)
+    const CURRENCY_NAMES = {
+      "AUD":"Australian Dollar","BGN":"Bulgarian Lev","BRL":"Brazilian Real","CAD":"Canadian Dollar","CHF":"Swiss Franc",
+      "CNY":"Chinese Yuan","CZK":"Czech Koruna","DKK":"Danish Krone","EUR":"Euro","GBP":"British Pound",
+      "HKD":"Hong Kong Dollar","HUF":"Hungarian Forint","IDR":"Indonesian Rupiah","ILS":"Israeli Shekel","INR":"Indian Rupee",
+      "ISK":"Icelandic Króna","JPY":"Japanese Yen","KRW":"South Korean Won","MXN":"Mexican Peso","MYR":"Malaysian Ringgit",
+      "NOK":"Norwegian Krone","NZD":"New Zealand Dollar","PLN":"Polish Złoty","RON":"Romanian Leu","SEK":"Swedish Krona",
+      "SGD":"Singapore Dollar","THB":"Thai Baht","TRY":"Turkish Lira","USD":"US Dollar","ZAR":"South African Rand"
+    };
+
+    // ====== DOM HOOKS ======
+    const baseSel = document.getElementById('base');
+    const quoteSel = document.getElementById('quote');
+    const amountInput = document.getElementById('amount');
+    const form = document.getElementById('convert-form');
+    const swapBtn = document.getElementById('swap');
+    const headline = document.getElementById('headline');
+    const subline = document.getElementById('subline');
+    const metaDate = document.getElementById('meta-date');
+    const ratesTable = document.querySelector('#rates-table tbody');
+    const filterInput = document.getElementById('filter');
+    const convertBtn = document.getElementById('convert-btn');
+    const historyCanvas = document.getElementById('history');
+    const ctx = historyCanvas.getContext('2d');
+
+    // ====== UTILITIES ======
+    const fmt = (n) => new Intl.NumberFormat(undefined, { maximumFractionDigits: 6 }).format(n);
+
+    // quick debounce (AI nudged me to add this to avoid spamming filter)
+    const debounce = (fn, ms=250) => {
+      let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+    };
+
+    // ====== POPULATE SELECTS ======
+    function populateSelects(defaultBase="USD", defaultQuote="EUR") {
+      const codes = Object.keys(CURRENCY_NAMES);
+      // AI recommended using .map() to build <option> strings cleanly (I then learned more Array methods)
+      const options = codes.map(c => `<option value="${c}">${c} — ${CURRENCY_NAMES[c]}</option>`).join('');
+      baseSel.innerHTML = options;
+      quoteSel.innerHTML = options;
+      baseSel.value = CURRENCY_NAMES[defaultBase] ? defaultBase : codes[0];
+      quoteSel.value = CURRENCY_NAMES[defaultQuote] ? defaultQuote : codes[1];
+    }
+
+    // ====== FETCH HELPERS ======
+    async function json(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+      return await res.json();
+    }
+
+    async function getLatest(base) {
+      // returns { amount, base, date, rates: {XXX: number, ...} }
+      return json(`${API}/latest?from=${encodeURIComponent(base)}`);
+    }
+
+    async function convert(base, quote, amount) {
+      // Frankfurter can return conversions by specifying 'to'
+      const data = await json(`${API}/latest?from=${encodeURIComponent(base)}&to=${encodeURIComponent(quote)}&amount=${encodeURIComponent(amount)}`);
+      return data; // same shape; rates will include only 'quote'
+    }
+
+    async function getTimeseries(base, symbol, days=7) {
+      const to = new Date();
+      const from = new Date(to); from.setDate(to.getDate() - (days-1));
+      const toISO = to.toISOString().split('T')[0];
+      const fromISO = from.toISOString().split('T')[0];
+      const url = `${API}/timeseries?from=${fromISO}&to=${toISO}&fromCurrency=${encodeURIComponent(base)}&to=${encodeURIComponent(symbol)}`;
+      // Note: if your Frankfurter instance expects 'base' + 'symbols', try:
+      // const url = `${API}/timeseries?start_date=${fromISO}&end_date=${toISO}&base=${base}&symbols=${symbol}`;
+      try {
+        return await json(url);
+      } catch (e) {
+        // fallback to an alternate param naming (Frankfurter has had variants)
+        const alt = `${API}/timeseries?start_date=${fromISO}&end_date=${toISO}&base=${encodeURIComponent(base)}&symbols=${encodeURIComponent(symbol)}`;
+        return await json(alt);
+      }
+    }
+
+    // ====== RENDERING ======
+    function renderRatesTable(base, rates, filter="") {
+      const entries = Object.entries(rates)
+        .map(([code, rate]) => ({ code, name: CURRENCY_NAMES[code] || code, rate }))
+        .sort((a,b) => a.code.localeCompare(b.code));
+
+      const q = filter.trim().toLowerCase();
+      const filtered = q
+        ? entries.filter(e => e.code.toLowerCase().includes(q) || e.name.toLowerCase().includes(q))
+        : entries;
+
+      ratesTable.innerHTML = filtered.map(e => `
+        <tr>
+          <td>${e.name}</td>
+          <td><span class="kbd">${e.code}</span></td>
+          <td>${fmt(e.rate)}</td>
+        </tr>
+      `).join('') || `<tr><td colspan="3" class="muted">No matches.</td></tr>`;
+    }
+
+    function renderHeadline(amount, base, quote, rate, date) {
+      const converted = rate * amount;
+      headline.textContent = `${fmt(amount)} ${base} = ${fmt(converted)} ${quote}`;
+      subline.textContent = `1 ${base} → ${quote} = ${fmt(rate)} (amount × rate)`;
+      metaDate.textContent = `Date: ${date}`;
+    }
+
+    function drawHistory(series) {
+      // series is array of {date, value}
+      const pad = 20;
+      const w = historyCanvas.width = historyCanvas.clientWidth * devicePixelRatio;
+      const h = historyCanvas.height = historyCanvas.clientHeight * devicePixelRatio;
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+      ctx.clearRect(0,0,w,h);
+
+      const min = Math.min(...series.map(p => p.value));
+      const max = Math.max(...series.map(p => p.value));
+      const xStep = (historyCanvas.clientWidth - pad*2) / (series.length - 1 || 1);
+      const y = v => {
+        // AI suggested .map() earlier; I explored scaling math here & learned clamp/normalize patterns
+        const t = (v - min) / (max - min || 1);
+        return (historyCanvas.clientHeight - pad) - t * (historyCanvas.clientHeight - pad*2);
+      };
+
+      // axes
+      ctx.strokeStyle = "#2a2f3d";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(pad, pad); ctx.lineTo(pad, historyCanvas.clientHeight - pad);
+      ctx.lineTo(historyCanvas.clientWidth - pad, historyCanvas.clientHeight - pad);
+      ctx.stroke();
+
+      // line
+      ctx.strokeStyle = "#6aa2ff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      series.forEach((p, i) => {
+        const x = pad + i * xStep;
+        const yy = y(p.value);
+        if (i === 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+      });
+      ctx.stroke();
+
+      // dots
+      ctx.fillStyle = "#9bc1ff";
+      series.forEach((p, i) => {
+        const x = pad + i * xStep;
+        const yy = y(p.value);
+        ctx.beginPath(); ctx.arc(x, yy, 3, 0, Math.PI*2); ctx.fill();
+      });
+    }
+
+    // ====== CONTROLLER ======
+    async function refreshAll() {
+      convertBtn.disabled = true;
+      try {
+        const base = baseSel.value;
+        const quote = quoteSel.value;
+        const amount = parseFloat(amountInput.value || "0");
+        const latest = await getLatest(base);
+        renderRatesTable(base, latest.rates);
+        const conv = await convert(base, quote, amount);
+        renderHeadline(amount, base, quote, conv.rates[quote], conv.date);
+
+        // build series for chart (7-day)
+        const ts = await getTimeseries(base, quote, 7);
+        // Timeseries shapes vary; normalize:
+        let series = [];
+        if (ts && ts.rates) {
+          // format: { rates: { "YYYY-MM-DD": { [QUOTE]: value } } }
+          series = Object.entries(ts.rates)
+            .map(([date, obj]) => ({ date, value: obj[quote] }))
+            .filter(p => typeof p.value === "number")
+            .sort((a,b) => a.date.localeCompare(b.date));
+        } else if (ts && ts.results) {
+          // hypothetical alt format: { results: [{date, value}] }
+          series = ts.results;
+        }
+        if (series.length) drawHistory(series);
+      } catch (err) {
+        headline.textContent = "Something went wrong.";
+        subline.textContent = err.message;
+        console.error(err);
+      } finally {
+        convertBtn.disabled = false;
+      }
+    }
+
+    // ====== EVENTS ======
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      refreshAll();
+    });
+
+    swapBtn.addEventListener('click', () => {
+      const b = baseSel.value;
+      baseSel.value = quoteSel.value;
+      quoteSel.value = b;
+      refreshAll();
+    });
+
+    // accessibility shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/') { e.preventDefault(); filterInput.focus(); }
+      if (e.key.toLowerCase() === 's') { e.preventDefault(); swapBtn.click(); }
+    });
+
+    filterInput.addEventListener('input', debounce(() => {
+      // re-render table quickly from last fetched rates in the DOM (parse back)
+      // in a real app, keep the last data in state; here, just refetch base for simplicity
+      getLatest(baseSel.value).then(data => renderRatesTable(baseSel.value, data.rates, filterInput.value)).catch(console.error);
+    }, 200));
+
+    // ====== INIT ======
+    populateSelects("USD", "EUR");
+    refreshAll();
+  </script>
 </body>
 </html>
+
