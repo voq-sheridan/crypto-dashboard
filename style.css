@@ -87,26 +87,29 @@ header p{ margin:0; color:var(--muted); }
     flex: 1 1 auto;      /* let title wrap if needed on small screens */
   }
 
-  /* ---- Tighten spacing ONLY for the Explore & Visualize card ---- */
-.explore-card { 
-    padding-top: 10px;          /* less top padding */
-    padding-bottom: 10px;       /* less bottom padding */
+ /* Tighten ONLY the card that contains #exploreHead */
+.card:has(#exploreHead) {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    gap: 6px;                     /* shrink vertical space between header & controls */
   }
   
-  .explore-card .section-header {
-    padding: 0;                 /* remove extra vertical breathing room */
+  .card:has(#exploreHead) .section-header {
+    padding: 0;                   /* remove extra vertical padding */
+    margin: 0;                    /* just in case */
+  }
+  
+  .card:has(#exploreHead) h2#exploreHead { 
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  .card:has(#exploreHead) #resetApp { 
     margin: 0;
   }
   
-  .explore-card h2#exploreHead {
-    margin: 0;                  /* kill default h2 margins */
-    line-height: 1.2;           /* tighter heading */
-  }
-  
-  .explore-card #resetApp {
-    margin: 0;                  /* avoid stray vertical gaps */
-  }
-  
+  /* Optional: the controls grid inside this card can be a bit tighter too */
+  .card:has(#exploreHead) .controls { gap: 8px; }
   
   /* Button base (you already use .pill — keep it) */
   .pill {
