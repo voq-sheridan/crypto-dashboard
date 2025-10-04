@@ -19,7 +19,6 @@
           <span class="theme-label dark">🌙</span>
         </div>
       </div>
-      
       <p>Live foreign exchange rates. Clear trends. Realistic conversions.</p>
       <p class="notice">
         Rates from the <a href="https://www.frankfurter.app/" target="_blank" rel="noopener">Frankfurter API</a>
@@ -28,12 +27,13 @@
     </header>
 
     <main class="grid" id="app" aria-live="polite">
-      <!-- LEFT: Exploration + Visualization -->
+      <!-- LEFT: Exploration + Daily/Historical -->
       <section class="card" aria-labelledby="exploreHead">
         <div class="section-header">
           <h2 id="exploreHead">Explore &amp; Visualize</h2>
           <button id="resetApp" class="pill btn-outline" aria-label="Reset to defaults">Reset</button>
         </div>
+
         <!-- Controls -->
         <div class="controls">
           <div class="row">
@@ -81,7 +81,16 @@
         <!-- Daily & historical rates -->
         <div id="rateCards" class="row" aria-live="polite"></div>
 
-        <!-- Stats -->
+        <!-- (Stats + Chart moved to RIGHT) -->
+
+        <p class="notice">Tip: press <span class="kbd">/</span> to jump to currency search.</p>
+      </section>
+
+      <!-- RIGHT: Trends + Conversion + Favorites -->
+      <aside class="card" aria-labelledby="trendsHead">
+        <h2 id="trendsHead">Trends &amp; Stats</h2>
+
+        <!-- Stats (Window / High / Low / Avg) -->
         <div class="statbar" id="statbar" aria-label="Window stats"></div>
 
         <!-- Chart -->
@@ -89,14 +98,11 @@
           <svg id="chart" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"></svg>
         </div>
 
-        <p class="notice">Tip: press <span class="kbd">/</span> to jump to currency search.</p>
-      </section>
-
-      <!-- RIGHT: Conversion + Favorites -->
-      <aside class="card" aria-labelledby="convertHead">
-        <h2 id="convertHead">Convert with Real Effective Rate</h2>
+        <!-- Conversion (now below the chart, same column) -->
+        <h2 id="convertHead" style="margin-top:6px">Convert with Real Effective Rate</h2>
         <div id="conversion" class="controls"></div>
 
+        <!-- Favorites unchanged -->
         <h2 id="favHead" style="margin-top:6px">Favorite Pairs</h2>
         <div id="favorites" class="favorites" aria-describedby="favHelp"></div>
         <p id="favHelp" class="notice">Favorites are stored locally in your browser.</p>
@@ -109,6 +115,5 @@
   </div>
 
   <script src="./script.js" type="module"></script>
-
 </body>
 </html>
