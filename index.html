@@ -11,6 +11,7 @@
   <div class="wrapper">
     <!-- Narrative frame -->
     <header class="hero" role="banner" aria-labelledby="title">
+      <button id="theme-toggle" aria-label="Switch to light mode">🌙 Dark Mode</button>
       <div class="flex" style="justify-content:space-between; gap:8px">
         <div>
           <h1 id="title">RateSense — See, compare, and convert FX rates you can actually use</h1>
@@ -101,5 +102,20 @@
   </div>
 
   <script src="./script.js" type="module"></script>
+  <script>
+    // Check system preference and apply the theme
+    function applyThemeBasedOnPreference() {
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.documentElement.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
+    }
+  
+    // Apply theme on page load
+    applyThemeBasedOnPreference();
+  
+    // Listen for changes in system preference
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  </script>
 </body>
 </html>

@@ -10,17 +10,41 @@
     --ring: #b2e5ff;
     --shadow: 0 10px 30px rgba(0,0,0,.35);
     --radius: 16px;
-  }
-  @media (prefers-color-scheme: light) {
-    :root { --bg:#f7fbff; --panel:#ffffff; --ink:#0b0d12; --muted:#445266; --accent:#0068ff; --accent-2:#009e66; --ring:#5aa7ff; }
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
-    color:var(--ink); background:radial-gradient(1200px 800px at 100% -10%, rgba(105,209,255,.18), transparent 60%) , var(--bg);
-    display:flex; flex-direction:column;
-  }
+}
+
+/* Light Mode Styles */
+html[data-theme="light"] {
+    --bg: #f7fbff;
+    --panel: #ffffff;
+    --ink: #0b0d12;
+    --muted: #445266;
+    --accent: #0068ff;
+    --accent-2: #009e66;
+    --ring: #5aa7ff;
+}
+
+@media (prefers-color-scheme: light) {
+    :root { 
+        --bg: #f7fbff; 
+        --panel: #ffffff; 
+        --ink: #0b0d12; 
+        --muted: #445266; 
+        --accent: #0068ff; 
+        --accent-2: #009e66; 
+        --ring: #5aa7ff; 
+    }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+    margin: 0; 
+    font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--ink); 
+    background: radial-gradient(1200px 800px at 100% -10%, rgba(105,209,255,.18), transparent 60%), var(--bg);
+    display: flex; 
+    flex-direction: column;
+}
   a{color:var(--accent)}
   .wrapper{width:min(1200px, 92vw); margin:0 auto; padding:24px 0 72px; display:grid; gap:18px;}
   header.hero{
