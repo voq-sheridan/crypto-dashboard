@@ -97,6 +97,15 @@ header p{ margin:0; color:var(--muted); }
     cursor: pointer;
     transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s;
   }
+
+  /* Slimmer style for Reset specifically */
+#resetApp {
+    padding: 0.35rem 0.75rem; /* tighter than the default pill */
+    font-size: 0.9rem;        /* slightly smaller text */
+    line-height: 1.2;         /* balances vertical height */
+    border-radius: 8px;       /* less rounded if you prefer */
+    width: auto;              /* prevents it from stretching */
+  }
   
   /* Visible outlined style for Reset */
   .btn-outline {
