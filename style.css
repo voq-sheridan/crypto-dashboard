@@ -86,6 +86,27 @@ header p{ margin:0; color:var(--muted); }
     margin: 0;           /* exact alignment */
     flex: 1 1 auto;      /* let title wrap if needed on small screens */
   }
+
+  /* ---- Tighten spacing ONLY for the Explore & Visualize card ---- */
+.explore-card { 
+    padding-top: 10px;          /* less top padding */
+    padding-bottom: 10px;       /* less bottom padding */
+  }
+  
+  .explore-card .section-header {
+    padding: 0;                 /* remove extra vertical breathing room */
+    margin: 0;
+  }
+  
+  .explore-card h2#exploreHead {
+    margin: 0;                  /* kill default h2 margins */
+    line-height: 1.2;           /* tighter heading */
+  }
+  
+  .explore-card #resetApp {
+    margin: 0;                  /* avoid stray vertical gaps */
+  }
+  
   
   /* Button base (you already use .pill — keep it) */
   .pill {
