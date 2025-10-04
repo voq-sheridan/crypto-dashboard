@@ -376,39 +376,39 @@ select{
 /* =========================================================
    DESKTOP-ONLY FINAL FIXES FOR "EXPLORE & VISUALIZE" HEADER
    ========================================================= */
+/* ==== Desktop-only: make Explore header tight by decoupling the button height ==== */
 @media (min-width: 901px){
-
-  /* Trim the card’s top/bottom padding and inner spacing only for Explore */
-  section.card[aria-labelledby="exploreHead"]{
-    padding-top: 8px;
-    padding-bottom: 8px;
-    gap: 8px; /* less space between header and controls */
+    /* Trim this card a bit so it matches the compact feel of Trends */
+    section.card[aria-labelledby="exploreHead"]{
+      padding-top: 8px;
+      padding-bottom: 8px;
+      gap: 6px; /* less space below the header */
+    }
+  
+    /* The header row itself */
+    section.card[aria-labelledby="exploreHead"] .section-header{
+      position: relative;   /* anchor for the absolute button */
+      display: block;       /* stop flex from stretching anything */
+      padding: 0;           /* no extra vertical padding */
+      margin: 0;
+      min-height: 0;
+    }
+  
+    /* Keep the title compact */
+    section.card[aria-labelledby="exploreHead"] .section-header h2{
+      margin: 0;
+      line-height: 1.05;    /* tighter cap/ascender space */
+    }
+  
+    /* Take the button out of normal flow so it doesn't inflate row height */
+    section.card[aria-labelledby="exploreHead"] #resetApp{
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);  /* vertically center next to the h2 */
+      margin: 0;
+      line-height: 1;
+      padding: .3rem .6rem;          /* compact so it looks right */
+    }
   }
-
-  /* Make the header row compact and predictable (grid beats flex here) */
-  section.card[aria-labelledby="exploreHead"] .section-header{
-    display: grid;
-    grid-template-columns: auto 1fr auto;  /* [title] [spacer] [Reset] */
-    align-items: center;
-    column-gap: 8px;
-    padding: 0; 
-    margin: 0;
-  }
-
-  /* Keep the title tight and stop it from growing */
-  section.card[aria-labelledby="exploreHead"] .section-header h2{
-    margin: 0;
-    line-height: 1.15;
-    flex: none; /* neutralize earlier flex: 1 1 auto */
-  }
-
-  /* Push Reset to the right without adding height */
-  section.card[aria-labelledby="exploreHead"] #resetApp{
-    justify-self: end;
-    margin: 0;
-    padding: .35rem .75rem;
-  }
-
-  /* Slightly tighten the controls block under the header */
-  section.card[aria-labelledby="exploreHead"] .controls{ gap: 8px; }
-}
+  
