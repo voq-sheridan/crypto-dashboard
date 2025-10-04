@@ -157,10 +157,15 @@ label{
 input, select, button{
   width:100%; padding:12px 12px; border-radius:12px;
   border:1px solid rgba(255,255,255,.12);
-  background:white; color:var(--ink); outline:0;
+  background:white; 
+  color: #000; /* Black text for night mode */
+    outline:0;
 }
 @media (prefers-color-scheme: light){
-  input,select,button{ background:#fff; border-color:#e8eef7; color:var(--text); }
+  input,select,button { 
+    background:#fff; 
+    border-color:#e8eef7; 
+    color:var(--text); }
 }
 input:focus, select:focus, button:focus{ box-shadow:0 0 0 3px var(--ring); }
 
