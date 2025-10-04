@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RateSense — Honest Foreign Exchange from Frankfurter</title>
+  <title>Convertly — Live foreign exchange rates from Frankfurter</title>
   <meta name="description" content="Interactive foreign exchange explorer using the Frankfurter API. Compare daily, historical, and time-series rates, visualize trends, and convert with real-world fee adjustments." />
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -21,7 +21,7 @@
           <h1 id="title">Convertly</h1>
           <p>Live foreign exchange rates. Clear trends. Realistic conversions.</p>
         </div>
-        <button id="resetApp" class="ghost pill" aria-label="Reset to defaults">Reset</button>
+        
       </div>
       <p class="notice">Rates from the <a href="https://frankfurter.dev/" target="_blank" rel="noopener">Frankfurter API</a> (official reference data, not trading quotes). These are indicative only and not executable trading rates.</p>
     </header>
@@ -30,6 +30,8 @@
       <!-- LEFT: Exploration + Visualization -->
       <section class="card" aria-labelledby="exploreHead">
         <h2 id="exploreHead">Explore &amp; Visualize</h2>
+
+        <button id="resetApp" class="ghost pill" aria-label="Reset to defaults">Reset</button>
 
         <!-- Controls -->
         <div class="controls">
