@@ -84,8 +84,7 @@ body, html {
     z-index: 1000;
   }
   
-  /* Style toggle switch itself */
-#theme-toggle {
+  #theme-toggle {
     width: 50px;
     height: 26px;
     background: var(--muted);
@@ -106,12 +105,11 @@ body, html {
     background: var(--ink);
     transition: transform 0.3s ease;
   }
-  
-  /* When dark mode is active, slide knob */
   [data-theme="dark"] #theme-toggle::before {
     transform: translateX(24px);
     background: var(--accent);
   }
+  
   
   /* Optional icon styles */
   .theme-label {
