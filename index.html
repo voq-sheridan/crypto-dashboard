@@ -11,19 +11,20 @@
   <div class="wrapper">
     <!-- Narrative frame -->
     <header class="hero" role="banner" aria-labelledby="title">
-      <div class="theme-toggle-container">
-        <span class="theme-label light">☀️</span>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode"></button>
-        <span class="theme-label dark">🌙</span>
-      </div>
-      <div class="flex" style="justify-content:space-between; gap:8px">
-        <div>
-          <h1 id="title">Convertly</h1>
-          <p>Live foreign exchange rates. Clear trends. Realistic conversions.</p>
+      <div class="hero-top">
+        <h1 id="title">Convertly</h1>
+        <div class="theme-toggle-container">
+          <span class="theme-label light">☀️</span>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode"></button>
+          <span class="theme-label dark">🌙</span>
         </div>
-        
       </div>
-      <p class="notice">Rates from the <a href="https://frankfurter.dev/" target="_blank" rel="noopener">Frankfurter API</a> (official reference data, not trading quotes). These are indicative only and not executable trading rates.</p>
+      
+      <p>Live foreign exchange rates. Clear trends. Realistic conversions.</p>
+      <p class="notice">
+        Rates from the <a href="https://www.frankfurter.app/" target="_blank" rel="noopener">Frankfurter API</a>
+        (official reference data, not trading quotes). These are indicative only and not executable trading rates.
+      </p>
     </header>
 
     <main class="grid" id="app" aria-live="polite">
