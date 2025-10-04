@@ -1,39 +1,78 @@
-:root {
-    --bg: #0b0d12;
-    --panel: #121621;
-    --ink: #eaf2ff;
-    --muted: #9bb0d1;
-    --accent: #69d1ff;
-    --accent-2: #93ffcc;
-    --danger: #ff6b6b;
-    --ok: #4ee1a0;
-    --ring: #b2e5ff;
-    --shadow: 0 10px 30px rgba(0,0,0,.35);
-    --radius: 16px;
-}
-
-/* Light Mode Styles */
-html[data-theme="light"] {
-    --bg: #f7fbff;
-    --panel: #ffffff;
-    --ink: #0b0d12;
-    --muted: #445266;
-    --accent: #0068ff;
-    --accent-2: #009e66;
-    --ring: #5aa7ff;
-}
-
-@media (prefers-color-scheme: light) {
-    :root { 
-        --bg: #f7fbff; 
-        --panel: #ffffff; 
-        --ink: #0b0d12; 
-        --muted: #445266; 
-        --accent: #0068ff; 
-        --accent-2: #009e66; 
-        --ring: #5aa7ff; 
-    }
-}
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    background: var(--header-bg, #f7fbff);
+  }
+  
+  main {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  /* Light and Dark Mode Variables */
+  :root {
+    --bg: #ffffff;
+    --text: #000000;
+    --header-bg: #f7fbff;
+  }
+  
+  [data-theme="dark"] {
+    --bg: #121212;
+    --text: #ffffff;
+    --header-bg: #1e1e1e;
+  }
+  
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+  
+  /* Toggle Button Styles */
+  .theme-toggle {
+    width: 50px;
+    height: 25px;
+    background: var(--toggle-bg, #ccc);
+    border: none;
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .theme-toggle::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: var(--toggle-knob, #fff);
+    border-radius: 50%;
+    position: absolute;
+    top: 2.5px;
+    left: 3px;
+    transition: transform 0.3s;
+  }
+  
+  [data-theme="dark"] .theme-toggle {
+    --toggle-bg: #444;
+    --toggle-knob: #fff;
+  }
+  
+  [data-theme="dark"] .theme-toggle::before {
+    transform: translateX(25px);
+  }
+  
+  /* Focus State */
+  .theme-toggle:focus {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+  }
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
