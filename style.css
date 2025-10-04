@@ -396,3 +396,42 @@ select {
 @media (max-width: 600px) {
   #resetApp { padding: .35rem .75rem; }
 }
+
+/* ===== Desktop-only fix for Explore & Visualize card ===== */
+@media (min-width: 901px){
+
+    /* Target only the card that has the Explore heading */
+    section.card[aria-labelledby="exploreHead"]{
+      padding-top: 8px;
+      padding-bottom: 8px;
+      gap: 8px; /* less space between header and controls */
+    }
+  
+    /* Header row: keep items together, not stretched */
+    section.card[aria-labelledby="exploreHead"] .section-header{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* not space-between */
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+    }
+  
+    /* Stop the title from expanding and creating a huge gap */
+    section.card[aria-labelledby="exploreHead"] .section-header h2{
+      margin: 0;
+      line-height: 1.15;
+      flex: 0 0 auto; /* overrides your earlier flex: 1 1 auto */
+    }
+  
+    /* If you want Reset on the far right, let the button take the push */
+    section.card[aria-labelledby="exploreHead"] #resetApp{
+      margin: 0;
+      padding: .35rem .75rem;
+      margin-left: auto; /* pushes only the button to the right edge */
+    }
+  
+    /* Optional: slightly tighten controls grid inside this card */
+    section.card[aria-labelledby="exploreHead"] .controls{ gap: 8px; }
+  }
+  
