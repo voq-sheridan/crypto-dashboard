@@ -287,3 +287,89 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
 @media (max-width: 380px){
   .statbar{ grid-template-columns: 1fr; }
 }
+
+/* ===== PATCH: outlines + native select + compact Reset (appended) ===== */
+
+/* Buttons shouldn't be full-width by default */
+button {
+  width: auto;                    /* override earlier width:100% */
+  background: var(--panel);
+  color: var(--text);
+}
+
+/* Reset button: compact + outlined */
+#resetApp {
+  padding: .35rem .75rem;
+  font-size: .9rem;
+  line-height: 1.2;
+  border-radius: 8px;
+}
+.pill.btn-outline {
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+}
+.pill.btn-outline:hover { background: rgba(0,104,255,.12); }
+.pill.btn-outline:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,104,255,.28);
+}
+
+/* Inputs + selects: light outlines (override the generic input/select/button block) */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+/* Hover + focus states */
+input[type="text"]:hover,
+input[type="number"]:hover,
+input[type="date"]:hover,
+select:hover { border-color: #999; }
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0,104,255,.20);
+}
+
+/* Use the native dropdown arrow (no SVG) */
+select {
+  appearance: auto;
+  -webkit-appearance: menulist;   /* Safari/iOS */
+  -moz-appearance: menulist;      /* Firefox */
+  background-image: none;         /* ensure no custom caret is shown */
+  padding-right: 0.6rem;          /* remove extra space reserved for custom arrow */
+}
+
+/* Dark theme tuning so borders don't glow */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] input[type="date"],
+[data-theme="dark"] select {
+  border-color: #374151;
+  background: var(--panel);
+  color: var(--text);
+}
+[data-theme="dark"] input[type="text"]:hover,
+[data-theme="dark"] input[type="number"]:hover,
+[data-theme="dark"] input[type="date"]:hover,
+[data-theme="dark"] select:hover { border-color: #4b5563; }
+
+/* Keep Reset compact on small screens even with global mobile padding */
+@media (max-width: 600px) {
+  #resetApp { padding: .35rem .75rem; }
+}
