@@ -121,6 +121,8 @@ body, html {
     box-shadow: var(--shadow);
     display: grid;
     gap: 10px;
+    justify-content: start;   /* ← add this line */
+    position: relative;       /* for the toggle; you already added this */
   }
 
   /* Make header the positioning context for the toggle */
