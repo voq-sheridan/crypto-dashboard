@@ -89,9 +89,9 @@ header p{ margin:0; color:var(--muted); }
 
 /* Tighten ONLY the card that contains #exploreHead (base) */
 .card:has(#exploreHead){
-  padding-top: 8px;
-  padding-bottom: 8px;
-  gap: 6px;  /* shrink vertical space between header & controls */
+  padding-top: 18px;
+  padding-bottom: 18px;
+  gap: 18px;  /* shrink vertical space between header & controls */
 }
 
 .card:has(#exploreHead) .section-header{ padding:0; margin:0; }
