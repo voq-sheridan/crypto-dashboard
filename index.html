@@ -5,88 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RateSense — Honest Foreign Exchange from Frankfurter</title>
   <meta name="description" content="Interactive foreign exchange explorer using the Frankfurter API. Compare daily, historical, and time-series rates, visualize trends, and convert with real-world fee adjustments." />
-
-  <!-- Design system (single file project): minimal CSS, accessible defaults -->
-  <style>
-    :root {
-      --bg: #0b0d12;
-      --panel: #121621;
-      --ink: #eaf2ff;
-      --muted: #9bb0d1;
-      --accent: #69d1ff;
-      --accent-2: #93ffcc;
-      --danger: #ff6b6b;
-      --ok: #4ee1a0;
-      --ring: #b2e5ff;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 16px;
-    }
-    @media (prefers-color-scheme: light) {
-      :root { --bg:#f7fbff; --panel:#ffffff; --ink:#0b0d12; --muted:#445266; --accent:#0068ff; --accent-2:#009e66; --ring:#5aa7ff; }
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--ink); background:radial-gradient(1200px 800px at 100% -10%, rgba(105,209,255,.18), transparent 60%) , var(--bg);
-      display:flex; flex-direction:column; gap:0;
-    }
-    a{color:var(--accent)}
-    .wrapper{width:min(1200px, 92vw); margin:0 auto; padding:24px 0 72px; display:grid; gap:18px;}
-    header.hero{
-      background:linear-gradient(135deg, rgba(105,209,255,.08), rgba(147,255,204,.06)), var(--panel);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);
-      display:grid; gap:10px;
-    }
-    header h1{margin:0;font-size:clamp(22px, 3vw, 34px); letter-spacing:.2px}
-    header p{margin:0;color:var(--muted)}
-    .grid{
-      display:grid; gap:18px;
-      grid-template-columns: 1.2fr .8fr;
-    }
-    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
-
-    .card{
-      background:var(--panel);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:18px; display:grid; gap:14px;
-    }
-    .card h2{margin:0; font-size:18px}
-    .controls{display:grid; gap:10px}
-    .row{display:grid; gap:10px; grid-template-columns: repeat(4, 1fr)}
-    .row > * {min-width:0}
-    @media (max-width: 900px){ .row{grid-template-columns:1fr 1fr} }
-    label{font-weight:600; font-size:13px; color:var(--muted); display:block; margin-bottom:6px}
-    input, select, button{
-      width:100%; padding:12px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
-      background:#0e1220; color:var(--ink); outline:0;
-    }
-    @media (prefers-color-scheme: light){ input,select,button{background:#fff; border-color:#e8eef7} }
-    input:focus, select:focus, button:focus{ box-shadow:0 0 0 3px var(--ring) }
-    button.primary{ background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#081018; border:none; font-weight:700; letter-spacing:.2px }
-    button.ghost{ background:transparent; border:1px dashed rgba(255,255,255,.22); color:var(--muted) }
-    .statbar{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px}
-    .stat{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px}
-    .stat h3{font:600 12px/1 var(--font, system-ui); color:var(--muted); margin:0 0 6px}
-    .stat p{margin:0; font:700 18px/1.2 system-ui}
-    .muted{color:var(--muted)}
-    .flex{display:flex; align-items:center; gap:10px}
-    .favorites{display:flex; flex-wrap:wrap; gap:8px}
-    .pill{padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03)}
-    .star{cursor:pointer; user-select:none; font-size:20px; line-height:1}
-    .star[aria-pressed="true"]{ color:#ffd166; text-shadow:0 1px 6px rgba(255,209,102,.4)}
-    .notice{font-size:13px; color:var(--muted)}
-    .chart-wrap{ position:relative; width:100%; height:260px; border-radius:12px; overflow:hidden; background:linear-gradient(180deg, rgba(255,255,255,.05), transparent); border:1px solid rgba(255,255,255,.08)}
-    .sr-only{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
-    footer{opacity:.8; color:var(--muted); text-align:center; margin-top:12px}
-    .kbd{font:600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.12)}
-  </style>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <div class="wrapper">
-    <!-- Narrative frame: speak directly to the user’s job-to-be-done -->
+    <!-- Narrative frame -->
     <header class="hero" role="banner" aria-labelledby="title">
       <div class="flex" style="justify-content:space-between; gap:8px">
         <div>
@@ -103,7 +26,7 @@
       <section class="card" aria-labelledby="exploreHead">
         <h2 id="exploreHead">Explore &amp; Visualize</h2>
 
-        <!-- Controls give users control of the API -->
+        <!-- Controls -->
         <div class="controls">
           <div class="row">
             <div>
@@ -147,13 +70,13 @@
           </div>
         </div>
 
-        <!-- Daily & historical rates (dynamic HTML via template strings) -->
+        <!-- Daily & historical rates -->
         <div id="rateCards" class="row" aria-live="polite"></div>
 
-        <!-- Stats (high/low/avg) -->
+        <!-- Stats -->
         <div class="statbar" id="statbar" aria-label="Window stats"></div>
 
-        <!-- Inline SVG line chart for time series -->
+        <!-- Chart -->
         <div class="chart-wrap" role="img" aria-label="Exchange rate line chart">
           <svg id="chart" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"></svg>
         </div>
@@ -173,7 +96,7 @@
     </main>
 
     <footer>
-      <p>Built for <em>Dynamic Data &amp; Third-Party APIs</em> — demonstrates Steps 5, 7, and 8 (interactive page, dynamic HTML, narrative &amp; visual design). :contentReference[oaicite:1]{index=1}</p>
+      <p>Built for <em>Dynamic Data &amp; Third-Party APIs</em> — interactive page, dynamic HTML, and clear narrative &amp; visual design.</p>
     </footer>
   </div>
 
