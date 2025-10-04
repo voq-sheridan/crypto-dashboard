@@ -318,25 +318,22 @@ function renderFavorites(){
     });
   });
 }
-// THEME TOGGLE (single source of truth)
+// THEME TOGGLE (no text, just knob + labels)
 const themeToggle = document.getElementById('theme-toggle');
 const htmlElement = document.documentElement;
 
-// Apply saved theme (default to 'light')
 const savedTheme = localStorage.getItem('theme') || 'light';
 htmlElement.setAttribute('data-theme', savedTheme);
 themeToggle.setAttribute('aria-label', savedTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-themeToggle.textContent = savedTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
 
-// Click to toggle
 themeToggle.addEventListener('click', () => {
   const current = htmlElement.getAttribute('data-theme') || 'light';
   const next = current === 'light' ? 'dark' : 'light';
   htmlElement.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
   themeToggle.setAttribute('aria-label', next === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-  themeToggle.textContent = next === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
 });
+
 
 /* ---------------- Extras ---------------- */
 // Keyboard shortcut: Shift+S swaps pair
