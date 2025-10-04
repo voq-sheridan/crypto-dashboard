@@ -74,6 +74,49 @@ header p{ margin:0; color:var(--muted); }
 .theme-toggle:focus{ box-shadow:0 0 0 3px rgba(0,123,255,.5); }
 .theme-label{ font-size:18px; user-select:none; }
 
+/* ------------------ Explore and Visualize ------------------ */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* H2 left, button right */
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .section-header h2 {
+    margin: 0;           /* exact alignment */
+    flex: 1 1 auto;      /* let title wrap if needed on small screens */
+  }
+  
+  /* Button base (you already use .pill — keep it) */
+  .pill {
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    white-space: nowrap; /* prevents awkward wrapping */
+    cursor: pointer;
+    transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s;
+  }
+  
+  /* Visible outlined style for Reset */
+  .btn-outline {
+    --accent: var(--accent, #0ea5e9);                 /* fallback if not defined */
+    color: var(--accent);
+    background: transparent;
+    border: 2px solid var(--accent);
+  }
+  
+  .btn-outline:hover {
+    /* subtle hover fill; uses color-mix if available, otherwise rgba fallback */
+    background: color-mix(in oklab, var(--accent), transparent 88%);
+    background: rgba(14,165,233,.12);
+  }
+  
+  .btn-outline:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(14,165,233,.28);
+  }
+
 /* ------------------ Layout Sections ------------------ */
 .grid{
   display:grid; gap:18px;
