@@ -1,239 +1,179 @@
-/* General Reset */
+/* ------------------ Base / Reset ------------------ */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+:root {
+  /* Theme tokens (light) */
+  --bg:#ffffff; --text:#0b0d12; --header-bg:#f7fbff;
+  --panel:#ffffff; --ink:#0b0d12; --muted:#445266;
+  --accent:#0068ff; --accent-2:#009e66; --ring:#5aa7ff;
+  --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+[data-theme="dark"]{
+  --bg:#0b0d12; --text:#eaf2ff; --header-bg:#121621;
+  --panel:#121621; --ink:#eaf2ff; --muted:#9bb0d1;
+  --accent:#69d1ff; --accent-2:#93ffcc; --ring:#b2e5ff;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
 body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
-    background: var(--header-bg, #f7fbff);
-  }
-  
+  margin:0; padding:0; font-family:Arial, sans-serif;
+  background: radial-gradient(1200px 800px at 100% -10%, rgba(105,209,255,.18), transparent 60%), var(--bg);
+  color:var(--text);
+  transition: background-color .3s, color .3s;
+}
 
-  main {
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  /* Light and Dark Mode Variables */
-  :root {
-    --bg: #ffffff;
-    --text: #000000;
-    --header-bg: #f7fbff;
-  }
-  
-  [data-theme="dark"] {
-    --bg: #121212;
-    --text: #ffffff;
-    --header-bg: #1e1e1e;
-  }
-  
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-  }
-  
-  /* Toggle Button Styles */
-  .theme-toggle-container {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 1000;
-  }
-  
-  .theme-toggle {
-    width: 50px;
-    height: 25px;
-    background: var(--toggle-bg, #ccc);
-    border: none;
-    border-radius: 25px;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-  }
-  
-  .theme-toggle::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background: var(--toggle-knob, #fff);
-    border-radius: 50%;
-    position: absolute;
-    top: 2.5px;
-    left: 3px;
-    transition: transform 0.3s;
-  }
-  
-  [data-theme="dark"] .theme-toggle {
-    --toggle-bg: #444;
-    --toggle-knob: #fff;
-  }
-  
-  [data-theme="dark"] .theme-toggle::before {
-    transform: translateX(25px);
-  }
-  
-  /* Focus State */
-  .theme-toggle:focus {
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
-  }
-  
-  /* Optional icon styles */
-  .theme-label {
-    font-size: 18px;
-    user-select: none;
-  }
-  
-  /* Base styles for site */
-  * { box-sizing: border-box; }
-  html, body { height: 100%; }
-  
-  body {
-    margin: 0; 
-    font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-    background: radial-gradient(1200px 800px at 100% -10%, rgba(105,209,255,.18), transparent 60%), var(--bg);
-    display: flex; 
-    flex-direction: column;
-  }
-  
-  a { color: var(--accent) }
-  
-  .wrapper {
-    width: min(1200px, 92vw);
-    margin: 0 auto;
-    padding: 24px 0 72px;
-    display: grid;
-    gap: 18px;
-  }
-  
-  header.hero {
-    background: linear-gradient(135deg, rgba(105,209,255,.08), rgba(147,255,204,.06)), var(--panel);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: var(--radius);
-    padding: 22px;
-    box-shadow: var(--shadow);
-    display: grid;
-    gap: 10px;
-    justify-content: start;   /* ← add this line */
-    position: relative;       /* for the toggle; you already added this */
-  }
+/* ------------------ Page Frame ------------------ */
+.wrapper{
+  width:min(1200px,92vw);
+  margin:0 auto;
+  padding:24px 0 72px;
+  display:grid;
+  gap:18px;
+}
 
-  /* Make header the positioning context for the toggle */
-header.hero {
-    position: relative;
-  }
-  
-  
-  header h1 {
-    margin: 0;
-    font-size: clamp(22px, 4vw, 38px);
-    letter-spacing: .2px;
-  }
+a{ color:var(--accent); }
 
-  header p {
-    margin: 0;
-    color: var(--muted);
-  }
-  
-  .grid {
-    display: grid;
-    gap: 18px;
-    grid-template-columns: 1.2fr .8fr;
-  }
-  @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
-  
-  .card {
-    background: var(--panel);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 18px;
-    display: grid;
-    gap: 14px;
-  }
-  .card h2 { margin: 0; font-size: 18px }
-  
-  .controls { display: grid; gap: 10px }
-  .row { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr) }
-  .row > * { min-width: 0 }
-  @media (max-width: 900px){ .row{grid-template-columns:1fr 1fr} }
-  
-  label {
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 6px;
-  }
-  
-  input, select, button {
-    width: 100%; padding: 12px 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,.12);
-    background: #0e1220; color: var(--ink); outline: 0;
-  }
-  @media (prefers-color-scheme: light){ input,select,button{background:#fff; border-color:#e8eef7} }
-  input:focus, select:focus, button:focus { box-shadow:0 0 0 3px var(--ring) }
-  
-  button.primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #081018; border: none; font-weight: 700; letter-spacing: .2px
-  }
-  button.ghost {
-    background: transparent;
-    border: 1px dashed rgba(255,255,255,.22);
-    color: var(--muted)
-  }
-  
-  .statbar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px }
-  .stat {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 12px;
-    padding: 12px;
-  }
-  .stat h3 { font: 600 12px/1 system-ui; color: var(--muted); margin: 0 0 6px }
-  .stat p { margin: 0; font: 700 18px/1.2 system-ui }
-  
-  .muted { color: var(--muted) }
-  .flex { display: flex; align-items: center; gap: 10px }
-  .favorites { display: flex; flex-wrap: wrap; gap: 8px }
-  .pill {
-    padding: 8px 12px; border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.14);
-    background: rgba(255,255,255,.03)
-  }
-  .star { cursor: pointer; user-select: none; font-size: 20px; line-height: 1 }
-  .star[aria-pressed="true"]{ color:#ffd166; text-shadow:0 1px 6px rgba(255,209,102,.4) }
-  .notice { font-size: 13px; color: var(--muted) }
-  .chart-wrap {
-    position: relative; width: 100%; height: 260px;
-    border-radius: 12px; overflow: hidden;
-    background: linear-gradient(180deg, rgba(255,255,255,.05), transparent);
-    border: 1px solid rgba(255,255,255,.08)
-  }
-  .sr-only {
-    position: absolute !important;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden; clip: rect(0,0,0,0); border: 0
-  }
-  footer {
-    opacity: .8; color: var(--muted);
-    text-align: center; margin-top: 12px
-  }
-  .kbd {
-    font: 600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-    background: rgba(255,255,255,.06);
-    padding: 2px 6px;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,.12)
-  }
-  
+/* ------------------ Hero ------------------ */
+/* (Remove any global `header { justify-content:flex-end }` rules) */
+header.hero{
+  background:linear-gradient(135deg, rgba(105,209,255,.08), rgba(147,255,204,.06)), var(--panel);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);
+  padding:22px;
+  box-shadow:var(--shadow);
+  display:grid;
+  gap:10px;
+  justify-content:start;         /* align left */
+  position:relative;             /* anchor toggle inside header */
+}
+
+header h1{
+  margin:0;
+  font-size: clamp(28px, 5vw, 42px); /* big on desktop, still big on mobile */
+  letter-spacing:.2px;
+}
+header p{ margin:0; color:var(--muted); }
+
+/* Toggle (desktop) */
+.theme-toggle-container{
+  position:absolute; top:16px; right:16px;
+  display:flex; align-items:center; gap:8px; z-index:1000;
+}
+.theme-toggle{
+  width:50px; height:25px; background:var(--toggle-bg, #ccc);
+  border:none; border-radius:25px; position:relative; cursor:pointer; outline:0;
+}
+.theme-toggle::before{
+  content:''; width:20px; height:20px; background:var(--toggle-knob,#fff);
+  border-radius:50%; position:absolute; top:2.5px; left:3px; transition:transform .3s;
+}
+[data-theme="dark"] .theme-toggle{ --toggle-bg:#444; --toggle-knob:#fff; }
+[data-theme="dark"] .theme-toggle::before{ transform:translateX(25px); }
+.theme-toggle:focus{ box-shadow:0 0 0 3px rgba(0,123,255,.5); }
+.theme-label{ font-size:18px; user-select:none; }
+
+/* ------------------ Layout Sections ------------------ */
+.grid{
+  display:grid; gap:18px;
+  grid-template-columns: 1.2fr .8fr;  /* desktop: 2 columns */
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px; display:grid; gap:14px;
+}
+.card h2{ margin:0; font-size:18px; }
+
+.controls{ display:grid; gap:10px; }
+
+.row{
+  display:grid; gap:10px;
+  grid-template-columns: repeat(4, 1fr); /* desktop: 4-up */
+}
+.row > *{ min-width:0; }
+
+label{
+  font-weight:600; font-size:13px; color:var(--muted);
+  display:block; margin-bottom:6px;
+}
+
+input, select, button{
+  width:100%; padding:12px 12px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:#0e1220; color:var(--ink); outline:0;
+}
+@media (prefers-color-scheme: light){
+  input,select,button{ background:#fff; border-color:#e8eef7; color:var(--text); }
+}
+input:focus, select:focus, button:focus{ box-shadow:0 0 0 3px var(--ring); }
+
+button.primary{
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:#081018; border:none; font-weight:700; letter-spacing:.2px;
+}
+button.ghost{
+  background:transparent; border:1px dashed rgba(255,255,255,.22); color:var(--muted);
+}
+
+.statbar{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
+.stat{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px; padding:12px;
+}
+.stat h3{ font:600 12px/1 system-ui; color:var(--muted); margin:0 0 6px; }
+.stat p{ margin:0; font:700 18px/1.2 system-ui; }
+
+.muted{ color:var(--muted); }
+.flex{ display:flex; align-items:center; gap:10px; }
+.favorites{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); }
+.star{ cursor:pointer; user-select:none; font-size:20px; line-height:1; }
+.star[aria-pressed="true"]{ color:#ffd166; text-shadow:0 1px 6px rgba(255,209,102,.4); }
+.notice{ font-size:13px; color:var(--muted); }
+
+.chart-wrap{
+  position:relative; width:100%; height:260px;
+  border-radius:12px; overflow:hidden;
+  background:linear-gradient(180deg, rgba(255,255,255,.05), transparent);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
+.kbd{
+  font:600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px;
+  border:1px solid rgba(255,255,255,.12);
+}
+
+/* ------------------ Responsive Tweaks ------------------ */
+/* tablets */
+@media (max-width: 900px){
+  .grid{ grid-template-columns: 1fr; }               /* 2 cols → 1 col */
+  .row{ grid-template-columns: 1fr 1fr; gap:12px; }  /* 4-up → 2-up */
+  .statbar{ grid-template-columns: 1fr 1fr; }
+}
+
+/* phones */
+@media (max-width: 600px){
+  /* Let header place toggle; avoid overlap */
+  .theme-toggle-container{ position:static; justify-self:end; margin-top:4px; }
+
+  /* Stack controls cleanly */
+  .row{ grid-template-columns: 1fr !important; gap:12px; }
+
+  /* Comfortable tap targets & no iOS zoom jump */
+  input, select, button{ font-size:16px; padding:12px; }
+
+  .chart-wrap{ height:180px; }
+}
+
+/* very small phones */
+@media (max-width: 380px){
+  .statbar{ grid-template-columns: 1fr; }
+}
