@@ -103,18 +103,27 @@
 
   <script src="./script.js" type="module"></script>
   <script>
-    // Check system preference and apply the theme
-    function applyThemeBasedOnPreference() {
-      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-      document.documentElement.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+  
+    // Check and apply the saved theme from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      htmlElement.setAttribute('data-theme', savedTheme);
+      themeToggle.textContent = savedTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+      themeToggle.setAttribute('aria-label', savedTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
     }
   
-    // Apply theme on page load
-    applyThemeBasedOnPreference();
+    // Add event listener for the toggle button
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
   
-    // Listen for changes in system preference
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-      document.documentElement.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+  
+      themeToggle.textContent = newTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+      themeToggle.setAttribute('aria-label', newTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
     });
   </script>
 </body>
