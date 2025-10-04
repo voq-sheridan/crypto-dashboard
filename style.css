@@ -75,114 +75,96 @@ header p{ margin:0; color:var(--muted); }
 .theme-label{ font-size:18px; user-select:none; }
 
 /* ------------------ Explore and Visualize ------------------ */
-.section-header {
-    display: flex;
-  align-items: center;
-  justify-content: space-between; /* keep them on edges */
-  padding: 0.25rem 0; /* shrink top/bottom padding */
-  }
-  
-  .section-header h2 {
-    margin: 0;           /* exact alignment */
-    flex: 1 1 auto;      /* let title wrap if needed on small screens */
-  }
+.section-header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between; /* edges by default */
+  padding: .25rem 0;              /* adds vertical air (we’ll trim for Explore on desktop) */
+}
 
- /* Tighten ONLY the card that contains #exploreHead */
-.card:has(#exploreHead) {
-    padding-top: 8px;
-    padding-bottom: 8px;
-    gap: 6px;                     /* shrink vertical space between header & controls */
-  }
-  
-  .card:has(#exploreHead) .section-header {
-    padding: 0;                   /* remove extra vertical padding */
-    margin: 0;                    /* just in case */
-  }
-  
-  .card:has(#exploreHead) h2#exploreHead { 
-    margin: 0;
-    line-height: 1.2;
-  }
-  
-  .card:has(#exploreHead) #resetApp { 
-    margin: 0;
-  }
-  
-  /* Optional: the controls grid inside this card can be a bit tighter too */
-  .card:has(#exploreHead) .controls { gap: 8px; }
-  
-  /* Button base (you already use .pill — keep it) */
-  .pill {
-    padding: .5rem 1rem;
-    border-radius: 999px;
-    font-weight: 600;
-    white-space: nowrap; /* prevents awkward wrapping */
-    cursor: pointer;
-    transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s;
-  }
+.section-header h2{
+  margin:0;
+  flex: 1 1 auto; /* grows on wide screens (we’ll neutralize for Explore on desktop) */
+}
 
-  /* Slimmer style for Reset specifically */
-#resetApp {
-    padding: 0.35rem 0.75rem; /* tighter than the default pill */
-    font-size: 0.9rem;        /* slightly smaller text */
-    line-height: 1.2;         /* balances vertical height */
-    border-radius: 8px;       /* less rounded if you prefer */
-    width: auto;              /* prevents it from stretching */
-  }
-  
-  /* Visible outlined style for Reset */
-  .btn-outline {
-    --accent: var(--accent, #0ea5e9);                 /* fallback if not defined */
-    color: var(--accent);
-    background: transparent;
-    border: 2px solid var(--accent);
-  }
-  
-  .btn-outline:hover {
-    /* subtle hover fill; uses color-mix if available, otherwise rgba fallback */
-    background: color-mix(in oklab, var(--accent), transparent 88%);
-    background: rgba(14,165,233,.12);
-  }
-  
-  .btn-outline:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(14,165,233,.28);
-  }
+/* Tighten ONLY the card that contains #exploreHead (base) */
+.card:has(#exploreHead){
+  padding-top: 8px;
+  padding-bottom: 8px;
+  gap: 6px;  /* shrink vertical space between header & controls */
+}
 
-  /* General inputs + selects */
+.card:has(#exploreHead) .section-header{ padding:0; margin:0; }
+.card:has(#exploreHead) h2#exploreHead{ margin:0; line-height:1.2; }
+.card:has(#exploreHead) #resetApp{ margin:0; }
+
+/* ------------------ Buttons / Inputs ------------------ */
+.pill{
+  padding:.5rem 1rem;
+  border-radius:999px;
+  font-weight:600;
+  white-space:nowrap;
+  cursor:pointer;
+  transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s;
+}
+
+/* Slimmer style for Reset specifically */
+#resetApp{
+  padding:.35rem .75rem; 
+  font-size:.9rem; 
+  line-height:1.2; 
+  border-radius:8px; 
+  width:auto;
+}
+
+/* Visible outlined style for Reset */
+.btn-outline{
+  --accent: var(--accent, #0ea5e9);
+  color: var(--accent);
+  background: transparent;
+  border: 2px solid var(--accent);
+}
+.btn-outline:hover{
+  /* support both color-mix (new) and rgba (fallback) */
+  background: color-mix(in oklab, var(--accent), transparent 88%);
+  background: rgba(14,165,233,.12);
+}
+.btn-outline:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(14,165,233,.28);
+}
+
+/* General inputs + selects */
 input[type="text"],
 input[type="number"],
 input[type="date"],
-select {
-  border: 1.5px solid #ccc;   /* light gray outline */
-  border-radius: 6px;         /* soften edges */
-  padding: 0.4rem 0.6rem;
-  background: var(--bg, #fff); /* respect theme if using light/dark */
+select{
+  border:1.5px solid #ccc;
+  border-radius:6px;
+  padding:.4rem .6rem;
+  background: var(--bg, #fff);
   color: var(--text, #000);
-  font-size: 0.95rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  width: 100%; /* keeps layout consistent */
-  box-sizing: border-box;
+  font-size:.95rem;
+  transition: border-color .2s, box-shadow .2s;
+  width:100%;
+  box-sizing:border-box;
 }
 
 /* Hover state */
 input[type="text"]:hover,
 input[type="number"]:hover,
 input[type="date"]:hover,
-select:hover {
-  border-color: #999;
-}
+select:hover{ border-color:#999; }
 
-/* Focus state (when user clicks/keys in) */
+/* Focus state */
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
-select:focus {
-  border-color: var(--accent, #0ea5e9); 
-  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
-  outline: none;
+select:focus{
+  border-color: var(--accent, #0ea5e9);
+  box-shadow:0 0 0 2px rgba(14,165,233,.2);
+  outline:none;
 }
-
 
 /* ------------------ Layout Sections ------------------ */
 .grid{
@@ -216,15 +198,18 @@ input, select, button{
   width:100%; padding:12px 12px; border-radius:12px;
   border:1px solid rgba(255,255,255,.12);
   background:white; 
-  color: #000; /* Black text for night mode */
-    outline:0;
+  color:#000;
+  outline:0;
 }
+
 @media (prefers-color-scheme: light){
-  input,select,button { 
+  input,select,button{ 
     background:#fff; 
     border-color:#e8eef7; 
-    color:var(--text); }
+    color:var(--text);
+  }
 }
+
 input:focus, select:focus, button:focus{ box-shadow:0 0 0 3px var(--ring); }
 
 button.primary{
@@ -276,19 +261,13 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
 
 /* phones */
 @media (max-width: 600px){
-    header.hero {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-    
-      /* Wrap h1 and toggle together in one row */
-      .hero-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-      }  
+  header.hero{
+    display:flex; flex-direction:column; gap:12px;
+  }
+  /* Wrap h1 and toggle together in one row */
+  .hero-top{
+    display:flex; justify-content:space-between; align-items:center; width:100%;
+  }
   /* Let header place toggle; avoid overlap */
   .theme-toggle-container{ position:static; justify-self:end; margin-top:4px; }
 
@@ -300,10 +279,7 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
 
   .chart-wrap{ height:180px; }
 
-  header h1 {
-    font-size: clamp(40px, 6vw, 50px); /* ~20% larger than base */
-  }
-
+  header h1{ font-size: clamp(40px, 6vw, 50px); } /* ~20% larger on mobile */
 }
 
 /* very small phones */
@@ -314,124 +290,125 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
 /* ===== PATCH: outlines + native select + compact Reset (appended) ===== */
 
 /* Buttons shouldn't be full-width by default */
-button {
-  width: auto;                    /* override earlier width:100% */
-  background: var(--panel);
-  color: var(--text);
+button{
+  width:auto;                    /* override earlier width:100% */
+  background:var(--panel);
+  color:var(--text);
 }
 
 /* Reset button: compact + outlined */
-#resetApp {
-  padding: .35rem .75rem;
-  font-size: .9rem;
-  line-height: 1.2;
-  border-radius: 8px;
+#resetApp{
+  padding:.35rem .75rem;
+  font-size:.9rem;
+  line-height:1.2;
+  border-radius:8px;
 }
-.pill.btn-outline {
-  border: 2px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
+.pill.btn-outline{
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
 }
-.pill.btn-outline:hover { background: rgba(0,104,255,.12); }
-.pill.btn-outline:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0,104,255,.28);
+.pill.btn-outline:hover{ background: rgba(0,104,255,.12); }
+.pill.btn-outline:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(0,104,255,.28);
 }
 
 /* Inputs + selects: light outlines (override the generic input/select/button block) */
 input[type="text"],
 input[type="number"],
 input[type="date"],
-select {
-  border: 1.5px solid #ccc;
-  border-radius: 6px;
-  padding: 0.4rem 0.6rem;
-  background: var(--panel);
-  color: var(--text);
-  font-size: 0.95rem;
-  width: 100%;
-  box-sizing: border-box;
-  transition: border-color .2s, box-shadow .2s;
+select{
+  border:1.5px solid #ccc;
+  border-radius:6px;
+  padding:.4rem .6rem;
+  background:var(--panel);
+  color:var(--text);
+  font-size:.95rem;
+  width:100%;
+  box-sizing:border-box;
+  transition:border-color .2s, box-shadow .2s;
 }
 
 /* Hover + focus states */
 input[type="text"]:hover,
 input[type="number"]:hover,
 input[type="date"]:hover,
-select:hover { border-color: #999; }
+select:hover{ border-color:#999; }
 
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
-select:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(0,104,255,.20);
+select:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(0,104,255,.20);
 }
 
 /* Use the native dropdown arrow (no SVG) */
-select {
-  appearance: auto;
-  -webkit-appearance: menulist;   /* Safari/iOS */
-  -moz-appearance: menulist;      /* Firefox */
-  background-image: none;         /* ensure no custom caret is shown */
-  padding-right: 0.6rem;          /* remove extra space reserved for custom arrow */
+select{
+  appearance:auto;
+  -webkit-appearance:menulist;   /* Safari/iOS */
+  -moz-appearance:menulist;      /* Firefox */
+  background-image:none;
+  padding-right:.6rem;
 }
 
 /* Dark theme tuning so borders don't glow */
 [data-theme="dark"] input[type="text"],
 [data-theme="dark"] input[type="number"],
 [data-theme="dark"] input[type="date"],
-[data-theme="dark"] select {
-  border-color: #374151;
-  background: var(--panel);
-  color: var(--text);
+[data-theme="dark"] select{
+  border-color:#374151;
+  background:var(--panel);
+  color:var(--text);
 }
 [data-theme="dark"] input[type="text"]:hover,
 [data-theme="dark"] input[type="number"]:hover,
 [data-theme="dark"] input[type="date"]:hover,
-[data-theme="dark"] select:hover { border-color: #4b5563; }
+[data-theme="dark"] select:hover{ border-color:#4b5563; }
 
 /* Keep Reset compact on small screens even with global mobile padding */
-@media (max-width: 600px) {
-  #resetApp { padding: .35rem .75rem; }
+@media (max-width:600px){
+  #resetApp{ padding:.35rem .75rem; }
 }
 
-/* ===== Desktop-only fix for Explore & Visualize card ===== */
+/* =========================================================
+   DESKTOP-ONLY FINAL FIXES FOR "EXPLORE & VISUALIZE" HEADER
+   ========================================================= */
 @media (min-width: 901px){
 
-    /* Target only the card that has the Explore heading */
-    section.card[aria-labelledby="exploreHead"]{
-      padding-top: 8px;
-      padding-bottom: 8px;
-      gap: 8px; /* less space between header and controls */
-    }
-  
-    /* Header row: keep items together, not stretched */
-    section.card[aria-labelledby="exploreHead"] .section-header{
-      display: flex;
-      align-items: center;
-      justify-content: flex-start; /* not space-between */
-      gap: 8px;
-      padding: 0;
-      margin: 0;
-    }
-  
-    /* Stop the title from expanding and creating a huge gap */
-    section.card[aria-labelledby="exploreHead"] .section-header h2{
-      margin: 0;
-      line-height: 1.15;
-      flex: 0 0 auto; /* overrides your earlier flex: 1 1 auto */
-    }
-  
-    /* If you want Reset on the far right, let the button take the push */
-    section.card[aria-labelledby="exploreHead"] #resetApp{
-      margin: 0;
-      padding: .35rem .75rem;
-      margin-left: auto; /* pushes only the button to the right edge */
-    }
-  
-    /* Optional: slightly tighten controls grid inside this card */
-    section.card[aria-labelledby="exploreHead"] .controls{ gap: 8px; }
+  /* Trim the card’s top/bottom padding and inner spacing only for Explore */
+  section.card[aria-labelledby="exploreHead"]{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    gap: 8px; /* less space between header and controls */
   }
-  
+
+  /* Make the header row compact and predictable (grid beats flex here) */
+  section.card[aria-labelledby="exploreHead"] .section-header{
+    display: grid;
+    grid-template-columns: auto 1fr auto;  /* [title] [spacer] [Reset] */
+    align-items: center;
+    column-gap: 8px;
+    padding: 0; 
+    margin: 0;
+  }
+
+  /* Keep the title tight and stop it from growing */
+  section.card[aria-labelledby="exploreHead"] .section-header h2{
+    margin: 0;
+    line-height: 1.15;
+    flex: none; /* neutralize earlier flex: 1 1 auto */
+  }
+
+  /* Push Reset to the right without adding height */
+  section.card[aria-labelledby="exploreHead"] #resetApp{
+    justify-self: end;
+    margin: 0;
+    padding: .35rem .75rem;
+  }
+
+  /* Slightly tighten the controls block under the header */
+  section.card[aria-labelledby="exploreHead"] .controls{ gap: 8px; }
+}
