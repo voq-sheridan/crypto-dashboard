@@ -47,7 +47,6 @@ body, html {
     cursor: pointer;
     outline: none;
   }
-  
   .theme-toggle::before {
     content: '';
     width: 20px;
@@ -59,12 +58,10 @@ body, html {
     left: 3px;
     transition: transform 0.3s;
   }
-  
   [data-theme="dark"] .theme-toggle {
     --toggle-bg: #444;
     --toggle-knob: #fff;
   }
-  
   [data-theme="dark"] .theme-toggle::before {
     transform: translateX(25px);
   }
