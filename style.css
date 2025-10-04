@@ -388,7 +388,6 @@ select{
     /* The header row itself */
     section.card[aria-labelledby="exploreHead"] .section-header{
       position: relative;   /* anchor for the absolute button */
-      display: block;       /* stop flex from stretching anything */
       padding: 0;           /* no extra vertical padding */
       margin: 0;
       min-height: 0;
