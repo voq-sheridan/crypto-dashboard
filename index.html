@@ -102,29 +102,6 @@
   </div>
 
   <script src="./script.js" type="module"></script>
-  <script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const htmlElement = document.documentElement;
-  
-    // Check and apply the saved theme from localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      htmlElement.setAttribute('data-theme', savedTheme);
-      themeToggle.textContent = savedTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
-      themeToggle.setAttribute('aria-label', savedTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-    }
-  
-    // Add event listener for the toggle button
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = htmlElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  
-      htmlElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-  
-      themeToggle.textContent = newTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
-      themeToggle.setAttribute('aria-label', newTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-    });
-  </script>
+
 </body>
 </html>

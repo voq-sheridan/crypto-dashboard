@@ -318,29 +318,24 @@ function renderFavorites(){
     });
   });
 }
-
-// Select the toggle button and the root HTML element
+// THEME TOGGLE (single source of truth)
 const themeToggle = document.getElementById('theme-toggle');
 const htmlElement = document.documentElement;
 
-// Apply the saved theme from localStorage on page load
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  htmlElement.setAttribute('data-theme', savedTheme);
-  themeToggle.setAttribute('aria-label', savedTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-}
+// Apply saved theme (default to 'light')
+const savedTheme = localStorage.getItem('theme') || 'light';
+htmlElement.setAttribute('data-theme', savedTheme);
+themeToggle.setAttribute('aria-label', savedTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+themeToggle.textContent = savedTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
 
-// Add event listener to toggle button
+// Click to toggle
 themeToggle.addEventListener('click', () => {
-  const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-  // Apply the new theme
-  htmlElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-
-  // Update the aria-label for accessibility
-  themeToggle.setAttribute('aria-label', newTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+  const current = htmlElement.getAttribute('data-theme') || 'light';
+  const next = current === 'light' ? 'dark' : 'light';
+  htmlElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  themeToggle.setAttribute('aria-label', next === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+  themeToggle.textContent = next === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
 });
 
 /* ---------------- Extras ---------------- */
