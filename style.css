@@ -380,7 +380,7 @@ select{
 @media (min-width: 901px){
     /* Trim this card a bit so it matches the compact feel of Trends */
     section.card[aria-labelledby="exploreHead"]{
-      padding-top: 8px;
+      padding-top: 18px;
       padding-bottom: 8px;
       gap: 6px; /* less space below the header */
     }
