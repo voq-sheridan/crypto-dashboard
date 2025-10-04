@@ -77,10 +77,9 @@ header p{ margin:0; color:var(--muted); }
 /* ------------------ Explore and Visualize ------------------ */
 .section-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between; /* H2 left, button right */
-    gap: 12px;
-    margin-bottom: 12px;
+  align-items: center;
+  justify-content: space-between; /* keep them on edges */
+  padding: 0.25rem 0; /* shrink top/bottom padding */
   }
   
   .section-header h2 {
