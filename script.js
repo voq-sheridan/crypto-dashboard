@@ -74,7 +74,7 @@ async function init(){
   els.refresh.addEventListener('click', refreshAll);
   els.favToggle.addEventListener('click', toggleFavorite);
   els.reset.addEventListener('click', async ()=>{
-    Object.assign(state, { base:'USD', quote:'EUR', rangeDays:30, date:'', amount:100, feePct:2.5 });
+    Object.assign(state, { base:'USD', quote:'CAD', rangeDays:30, date:'', amount:100, feePct:2.5 });
     syncControlsFromState(); await refreshAll();
   });
 
