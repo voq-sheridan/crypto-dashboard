@@ -29,7 +29,7 @@ const els = {
 const state = {
   currencies: {},
   base: 'USD',
-  quote: 'EUR',
+  quote: 'CAD',
   rangeDays: 30,
   date: '',
   amount: 100,
