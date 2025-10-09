@@ -231,7 +231,7 @@ function renderConversion(){
     </div>
     <div class="stat converted">
       <h3>Converted amount</h3>
-      <p><strong>${fmt(out)}</strong> ${state.quote} <span class="muted">for ${fmt(state.amount)} ${state.base}</span></p>
+      <p><strong>${fmt(out)}</strong> ${state.quote} <span class="muted"></span></p>
     </div>
   `;
 }
