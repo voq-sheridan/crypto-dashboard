@@ -92,8 +92,12 @@
         <p class="notice">Tip: press <span class="kbd">/</span> to jump to currency search.</p>
       </section>
 
-      <!-- RIGHT: Trends + Conversion + Favorites -->
+      <!-- RIGHT: Conversion + Trends + Favorites -->
       <aside class="card" aria-labelledby="trendsHead">
+        <!-- Conversion (moved above trends per request) -->
+        <h2 id="convertHead" style="margin-top:6px">Convert with Real Effective Rate</h2>
+        <div id="conversion" class="controls"></div>
+
         <h2 id="trendsHead">Trends &amp; Stats</h2>
 
         <!-- Stats (Window / High / Low / Avg) -->
@@ -103,10 +107,6 @@
         <div class="chart-wrap" role="img" aria-label="Exchange rate line chart">
           <svg id="chart" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"></svg>
         </div>
-
-        <!-- Conversion (now below the chart, same column) -->
-        <h2 id="convertHead" style="margin-top:6px">Convert with Real Effective Rate</h2>
-        <div id="conversion" class="controls"></div>
 
         <!-- Favorites unchanged -->
         <h2 id="favHead" style="margin-top:6px">Favorite Pairs</h2>
