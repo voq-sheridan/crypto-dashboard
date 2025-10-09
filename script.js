@@ -162,7 +162,7 @@ async function refreshAll(){
 
 function renderRateCards(){
   const pair = `${state.base}/${state.quote}`;
-  const latest = state.latest ? card('Today', state.latest.date, state.latest.rate, pair) : '';
+  const latest = state.latest ? card('Rate as of:', state.latest.date, state.latest.rate, pair) : '';
   const hist = state.historical ? card('Historical', state.historical.date, state.historical.rate, pair) : '';
   els.rateCards.innerHTML = `
     ${latest}
