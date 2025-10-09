@@ -45,6 +45,20 @@
               <label for="quote">Quote</label>
               <select id="quote" name="quote" aria-label="Quote currency"></select>
             </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="amount">Amount (base)</label>
+              <input id="amount" type="number" inputmode="decimal" min="0" value="100" step="0.01" />
+            </div>
+            <div>
+              <label for="fee">Fee / spread %</label>
+              <input id="fee" type="number" inputmode="decimal" min="0" value="2.5" step="0.1" />
+            </div>
+          </div>
+
+          <div class="row">
             <div>
               <label for="date">Historical date</label>
               <input id="date" type="date" aria-label="Pick a date for historical rate" />
@@ -60,14 +74,6 @@
           </div>
 
           <div class="row">
-            <div>
-              <label for="amount">Amount (base)</label>
-              <input id="amount" type="number" inputmode="decimal" min="0" value="100" step="0.01" />
-            </div>
-            <div>
-              <label for="fee">Fee / spread %</label>
-              <input id="fee" type="number" inputmode="decimal" min="0" value="2.5" step="0.1" />
-            </div>
             <div class="flex" style="align-self:end">
               <button id="swap" class="pill" aria-label="Swap base and quote"><span aria-hidden="true">⇄</span> Swap</button>
               <button id="refresh" class="pill" aria-label="Refresh data">Refresh</button>

@@ -413,15 +413,18 @@ select{
     /* Desktop-only: make the first controls row display as 2 columns
        so the date & range move below Base & Quote while keeping
        the DOM unchanged. This targets the first .row inside .controls. */
-    /* Desktop: visually stack date & range beneath base & quote.
-       Slightly tighter gap for compactness on wide screens. */
-    section.card[aria-labelledby="exploreHead"] .controls > .row:first-of-type{
-      grid-template-columns: repeat(2, 1fr); /* 2-up on desktop */
+    /* Desktop: make controls rows 1-3 be 2-up so fields sit in two columns
+       (Base/Quote, Amount/Fee, Date/Range). Keep the last row (actions)
+       as 4-up so buttons align to the right. */
+    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(1),
+    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(2),
+    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(3){
+      grid-template-columns: repeat(2, 1fr);
       gap:10px;
     }
 
-    /* Ensure subsequent rows remain 4-up for action controls */
-    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(2){
+    /* Keep the action row (4th) as 4-up on desktop */
+    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(4){
       grid-template-columns: repeat(4, 1fr);
     }
   }
