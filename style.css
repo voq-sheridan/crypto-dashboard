@@ -192,7 +192,7 @@ select:focus{
 .controls{ display:grid; gap:10px; }
 
 .row{
-  display:grid; gap:10px;
+  gap:10px;
   grid-template-columns: repeat(4, 1fr); /* desktop: 4-up */
 }
 .row > *{ min-width:0; }
