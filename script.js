@@ -162,18 +162,27 @@ function renderRateCards(){
 
   // Render both Live and Historical inside the right-column placeholder
   if (els.historicalEl){
-    els.historicalEl.innerHTML = `
-      <div class="row">
-        <div class="stat">
-          <p>1 ${state.base} = <strong>${Number(latestRate).toFixed(4)}</strong> ${state.quote}</p>
-          <p class="muted">${latestDate}</p>
+    if (hist){
+      // When a historical date is selected, show only the historical rate (hide today's rate)
+      els.historicalEl.innerHTML = `
+        <div class="row">
+          <div class="stat">
+            <p>1 ${state.base} = <strong>${Number(hist.rate).toFixed(4)}</strong> ${state.quote}</p>
+            <p class="muted">${hist.date}</p>
+          </div>
         </div>
-        ${hist ? `<div class="stat">
-                   <p>1 ${state.base} = <strong>${Number(hist.rate).toFixed(4)}</strong> ${state.quote}</p>
-                   <p class="muted">${hist.date}</p>
-                 </div>` : ''}
-      </div>
-    `;
+      `;
+    } else {
+      // No historical date selected — show live mid-market only
+      els.historicalEl.innerHTML = `
+        <div class="row">
+          <div class="stat">
+            <p>1 ${state.base} = <strong>${Number(latestRate).toFixed(4)}</strong> ${state.quote}</p>
+            <p class="muted">${latestDate}</p>
+          </div>
+        </div>
+      `;
+    }
   }
 }
 
