@@ -166,7 +166,6 @@ function renderStatsAndChart(){
   const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
 
   els.statbar.innerHTML = `
-    ${stat('Window', `${state.rangeDays}d`)}
     ${stat('High', fmt(hi))}
     ${stat('Low', fmt(lo))}
     ${stat('Avg', fmt(avg))}

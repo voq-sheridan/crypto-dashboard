@@ -297,6 +297,15 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
   header h1{ font-size: clamp(40px, 6vw, 50px); } /* ~20% larger on mobile */
 }
 
+/* Trends aside: make the historical date and range controls flexible to the aside width */
+.card[aria-labelledby="trendsHead"] .controls .row{
+  grid-template-columns: 1fr 1fr; /* two equal columns that fill the aside */
+}
+.card[aria-labelledby="trendsHead"] .controls input,
+.card[aria-labelledby="trendsHead"] .controls select{
+  width:100%; box-sizing:border-box; /* ensure they fill their grid cell */
+}
+
 /* very small phones */
 @media (max-width: 380px){
   .statbar{ grid-template-columns: 1fr; }
