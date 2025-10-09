@@ -89,14 +89,22 @@ header p{ margin:0; color:var(--muted); }
 
 /* Tighten ONLY the card that contains #exploreHead (base) */
 .card:has(#exploreHead){
-  padding-top: 18px;
-  padding-bottom: 18px;
-  gap: 18px;  /* shrink vertical space between header & controls */
+  /* reduced vertical padding so the header and controls sit tighter */
+  padding-top: 12px;
+  padding-bottom: 12px;
+  gap: 10px;  /* smaller vertical gap between header & controls */
 }
 
-.card:has(#exploreHead) .section-header{ padding:0; margin:0; }
-.card:has(#exploreHead) h2#exploreHead{ margin:0; line-height:1.2; }
-.card:has(#exploreHead) #resetApp{ margin:0; }
+.card:has(#exploreHead) .section-header{
+  padding:0; margin:0;
+  display:flex; align-items:center; gap:12px; /* ensure vertical centering */
+}
+.card:has(#exploreHead) h2#exploreHead{ margin:0; line-height:1.15; }
+.card:has(#exploreHead) #resetApp{ margin:0; align-self:center; padding:.32rem .6rem; }
+
+/* Header action group (Swap + Reset) */
+.header-actions{ display:flex; gap:8px; align-items:center; }
+.header-actions .pill{ padding:.28rem .6rem; }
 
 /* ------------------ Buttons / Inputs ------------------ */
 .pill{
@@ -387,7 +395,8 @@ select{
 @media (min-width: 901px){
     /* Trim this card a bit so it matches the compact feel of Trends */
     section.card[aria-labelledby="exploreHead"]{
-      padding-top: 18px;
+      /* desktop: slightly tighter top padding to match the compact card feel */
+      padding-top: 12px;
       padding-bottom: 8px;
       gap: 6px; /* less space below the header */
     }
@@ -406,15 +415,9 @@ select{
       line-height: 1.05;   /* tighter cap/ascender space */
     }
   
-    /* Take the button out of normal flow so it doesn't inflate row height */
+    /* Keep Reset inline inside header actions on desktop */
     section.card[aria-labelledby="exploreHead"] #resetApp{
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);  /* vertically center next to the h2 */
-      margin: 0;
-      line-height: 1;
-      padding: .3rem .6rem;          /* compact so it looks right */
+      position: static; right: auto; transform: none; padding: .32rem .6rem;
     }
 
     /* Desktop-only: make the first controls row display as 2 columns

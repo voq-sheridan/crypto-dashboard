@@ -14,9 +14,7 @@ const els = {
   range: document.querySelector('#range'),
   amount: document.querySelector('#amount'),
   fee: document.querySelector('#fee'),
-  refresh: document.querySelector('#refresh'),
   swap: document.querySelector('#swap'),
-  favToggle: document.querySelector('#favToggle'),
   rateCards: document.querySelector('#rateCards'),
   statbar: document.querySelector('#statbar'),
   chart: document.querySelector('#chart'),
@@ -71,8 +69,6 @@ async function init(){
     [state.base, state.quote] = [state.quote, state.base];
     syncControlsFromState(); await refreshAll();
   });
-  els.refresh.addEventListener('click', refreshAll);
-  els.favToggle.addEventListener('click', toggleFavorite);
   els.reset.addEventListener('click', async ()=>{
     Object.assign(state, { base:'USD', quote:'CAD', rangeDays:30, date:'', amount:100, feePct:2.5 });
     syncControlsFromState(); await refreshAll();
@@ -161,26 +157,9 @@ async function refreshAll(){
 }
 
 function renderRateCards(){
-  const pair = `${state.base}/${state.quote}`;
-  const latest = state.latest ? card('Rate as of:', state.latest.date, state.latest.rate, pair) : '';
-  const hist = state.historical ? card('Historical', state.historical.date, state.historical.rate, pair) : '';
-  els.rateCards.innerHTML = `
-    ${latest}
-    ${hist || emptyCard('Pick a date to see a historical rate.')}
-    ${pairNote()}
-  `;
-
-  function card(label, date, rate, pair){
-    return `
-      <div class="stat" role="group" aria-label="${label} rate">
-        <h3>${label} • <span class="muted">${date}</span></h3>
-        <p aria-live="polite"><strong>1 ${state.base}</strong> = <strong>${fmt(rate)}</strong> ${state.quote}</p>
-        <p class="notice">Pair: ${pair}</p>
-      </div>
-    `;
-  }
-  function emptyCard(text){ return `<div class="stat"><p class="muted">${text}</p></div>`; }
-  function pairNote(){ return `<div class="stat"><p class="notice">Data from Frankfurter. If base and quote are the same, rate = 1.0</p></div>`; }
+  // Rates are shown only in the conversion panel on the right.
+  // Clear the left-hand rate cards to avoid duplicate rate displays.
+  els.rateCards.innerHTML = '';
 }
 
 function renderStatsAndChart(){
@@ -291,8 +270,7 @@ function pairKey(){ return `${state.base}/${state.quote}`; }
 function updateFavStar(){
   const key = pairKey();
   const on = state.favorites.includes(key);
-  els.favToggle.setAttribute('aria-pressed', String(on));
-  els.favToggle.textContent = on ? '★' : '☆';
+  // No dedicated fav toggle button anymore; the favorites list reflects saved pairs.
 }
 
 function toggleFavorite(){

@@ -31,7 +31,10 @@
       <section class="card explore-card" aria-labelledby="exploreHead">
         <div class="section-header">
           <h2 id="exploreHead">Explore &amp; Visualize</h2>
-          <button id="resetApp" class="pill btn-outline" aria-label="Reset to defaults">Reset</button>
+          <div class="header-actions">
+            <button id="swap" class="pill" aria-label="Swap base and quote"><span aria-hidden="true">⇄</span> Swap</button>
+            <button id="resetApp" class="pill btn-outline" aria-label="Reset to defaults">Reset</button>
+          </div>
         </div>
 
         <!-- Controls -->
@@ -74,13 +77,10 @@
           </div>
 
           <div class="row">
-            <div class="flex" style="align-self:end">
-              <button id="swap" class="pill" aria-label="Swap base and quote"><span aria-hidden="true">⇄</span> Swap</button>
-              <button id="refresh" class="pill" aria-label="Refresh data">Refresh</button>
-            </div>
-            <div class="flex" style="justify-content:flex-end; align-self:end">
-              <button id="favToggle" class="star" aria-pressed="false" aria-label="Save as favorite">☆</button>
-            </div>
+            <div></div>
+              <div class="flex" style="justify-content:flex-end; align-self:end">
+                <!-- favorite toggle removed; favorites are managed via the Favorite Pairs list -->
+              </div>
           </div>
         </div>
 
