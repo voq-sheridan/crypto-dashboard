@@ -226,7 +226,7 @@ button.ghost{
   border:1px solid rgba(255,255,255,.08);
   border-radius:12px; padding:12px;
 }
-.stat h3{ font:400 20px/1 system-ui/1 system-ui; color:var(--muted); margin:6px 0 6px; }
+.stat h3{ font:200 20px/1 system-ui/1 system-ui; color:var(--muted); margin:6px 0 6px; }
 .stat p{ margin:0; font:500 25px/1.2 system-ui; padding: 5px 0 5px; }
 
 /* Make the converted amount number larger for emphasis */
