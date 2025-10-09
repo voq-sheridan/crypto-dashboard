@@ -316,13 +316,19 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
 
 /* Ensure fetched historical data fits the Trends aside width */
 .card[aria-labelledby="trendsHead"] #historical .row{
-  grid-template-columns: repeat(2, 1fr); /* two columns side-by-side on desktop */
-  gap: 12px;
+  display:flex;                /* side-by-side on desktop */
+  gap:18px;
+  align-items:flex-start;
+}
+.card[aria-labelledby="trendsHead"] #historical .row > *{
+  flex:1 1 0;                  /* let items share available space */
+  min-width:0;                 /* prevent overflow from long text */
 }
 @media (max-width: 900px){
   .card[aria-labelledby="trendsHead"] #historical .row{
-    grid-template-columns: 1fr; /* stack on smaller screens */
+    display:block;             /* stack on smaller screens for comfortable reading */
   }
+  .card[aria-labelledby="trendsHead"] #historical .row > *{ margin-bottom:12px; }
 }
 .card[aria-labelledby="trendsHead"] #historical .stat{
   width:100%; box-sizing:border-box;
