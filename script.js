@@ -19,6 +19,7 @@ const els = {
   statbar: document.querySelector('#statbar'),
   chart: document.querySelector('#chart'),
   conversion: document.querySelector('#conversion'),
+    historicalEl: document.querySelector('#historical'),
   reset: document.querySelector('#resetApp'),
   app: document.querySelector('#app'),
 };
@@ -152,9 +153,28 @@ async function refreshAll(){
 }
 
 function renderRateCards(){
-  // Rates are shown only in the conversion panel on the right.
-  // Clear the left-hand rate cards to avoid duplicate rate displays.
+  // Clear the left column rate cards (we render rates in the right column now)
   els.rateCards.innerHTML = '';
+
+  const latestRate = state.latest?.rate ?? 1;
+  const latestDate = state.latest?.date ?? new Date().toISOString().slice(0,10);
+  const hist = state.historical;
+
+  // Render both Live and Historical inside the right-column placeholder
+  if (els.historicalEl){
+    els.historicalEl.innerHTML = `
+      <div class="row">
+        <div class="stat">
+          <p>1 ${state.base} = <strong>${Number(latestRate).toFixed(4)}</strong> ${state.quote}</p>
+          <p class="muted">${latestDate}</p>
+        </div>
+        ${hist ? `<div class="stat">
+                   <p>1 ${state.base} = <strong>${Number(hist.rate).toFixed(4)}</strong> ${state.quote}</p>
+                   <p class="muted">${hist.date}</p>
+                 </div>` : ''}
+      </div>
+    `;
+  }
 }
 
 function renderStatsAndChart(){

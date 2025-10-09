@@ -306,6 +306,29 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
   width:100%; box-sizing:border-box; /* ensure they fill their grid cell */
 }
 
+/* Make the first controls block (date input) full-width inside the Trends aside */
+.card[aria-labelledby="trendsHead"] .controls:first-of-type .row{
+  grid-template-columns: 1fr; /* single column so the date input stretches */
+}
+.card[aria-labelledby="trendsHead"] .controls:first-of-type input#date{
+  width:100%; box-sizing:border-box;
+}
+
+/* Ensure fetched historical data fits the Trends aside width */
+.card[aria-labelledby="trendsHead"] #historical .row{
+  grid-template-columns: repeat(2, 1fr); /* two columns side-by-side on desktop */
+  gap: 12px;
+}
+@media (max-width: 900px){
+  .card[aria-labelledby="trendsHead"] #historical .row{
+    grid-template-columns: 1fr; /* stack on smaller screens */
+  }
+}
+.card[aria-labelledby="trendsHead"] #historical .stat{
+  width:100%; box-sizing:border-box;
+  padding:10px; /* slightly tighter padding for inline fit */
+}
+
 /* very small phones */
 @media (max-width: 380px){
   .statbar{ grid-template-columns: 1fr; }

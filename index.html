@@ -91,9 +91,18 @@
         <div class="controls">
           <div class="row">
             <div>
-              <label for="date">Historical date</label>
-              <input id="date" type="date" aria-label="Pick a date for historical rate" />
+              <label for="date">Pick a date for historical rate</label>
+              <input id="date" type="date" aria-label="" />
             </div>
+          </div>
+        </div>
+
+        <!-- Historical rate display: appears right after the date input -->
+        <div id="historical" class="row" aria-live="polite"></div>
+
+        <!-- Moved: Trend window now appears below the fetched historical data -->
+        <div class="controls">
+          <div class="row">
             <div>
               <label for="range">Trend window</label>
               <select id="range" aria-label="Select time window">
