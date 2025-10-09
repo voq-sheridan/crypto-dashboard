@@ -396,7 +396,7 @@ select{
     /* Keep the title compact */
     section.card[aria-labelledby="exploreHead"] .section-header h2{
       margin: 0;
-      line-height: 1.05;    /* tighter cap/ascender space */
+      line-height: 1.05;   /* tighter cap/ascender space */
     }
   
     /* Take the button out of normal flow so it doesn't inflate row height */
