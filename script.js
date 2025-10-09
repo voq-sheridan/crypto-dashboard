@@ -163,12 +163,11 @@ function renderRateCards(){
   // Render both Live and Historical inside the right-column placeholder
   if (els.historicalEl){
     if (hist){
-      // When a historical date is selected, show only the historical rate (hide today's rate)
+      // When a historical date is selected, show only the historical rate (hide today's rate and the date)
       els.historicalEl.innerHTML = `
         <div class="row">
           <div class="stat">
             <p>1 ${state.base} = <strong>${Number(hist.rate).toFixed(4)}</strong> ${state.quote}</p>
-            <p class="muted">${hist.date}</p>
           </div>
         </div>
       `;

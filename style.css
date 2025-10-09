@@ -271,10 +271,41 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
 @media (max-width: 900px){
   .grid{ grid-template-columns: 1fr; }               /* 2 cols → 1 col */
   .row{ grid-template-columns: 1fr 1fr; gap:12px; }  /* 4-up → 2-up */
-  .statbar{ grid-template-columns: 1fr 1fr; }
+  /* Keep statbar as three columns on mobile; allow horizontal scroll if space is tight */
+  .statbar{ grid-template-columns: repeat(3, 1fr); overflow-x:auto; }
 }
 
 /* phones */
+
+  /* Ensure the top row of controls in the Explore card places From and To on the same row */
+  section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Desktop: align labels horizontally with inputs for the top controls row */
+  @media (min-width: 901px){
+    section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type > div{
+      display:flex; align-items:center; gap:12px;
+    }
+    section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type > div > label{
+      margin:0; white-space:nowrap; min-width:72px; color:var(--muted);
+      font-weight:600; font-size:13px;
+    }
+    section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type > div > select{
+      flex:1 1 auto; min-width:0;
+    }
+    /* Align Amount and Fee labels next to their inputs on desktop */
+    section.card[aria-labelledby="exploreHead"] .controls .row:nth-of-type(2) > div{
+      display:flex; align-items:center; gap:12px;
+    }
+    section.card[aria-labelledby="exploreHead"] .controls .row:nth-of-type(2) > div > label{
+      margin:0; white-space:nowrap; min-width:72px; color:var(--muted);
+      font-weight:600; font-size:13px;
+    }
+    section.card[aria-labelledby="exploreHead"] .controls .row:nth-of-type(2) > div > input{
+      flex:1 1 auto; min-width:0;
+    }
+  }
 @media (max-width: 600px){
   header.hero{
     display:flex; flex-direction:column; gap:12px;
@@ -337,7 +368,8 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
 
 /* very small phones */
 @media (max-width: 380px){
-  .statbar{ grid-template-columns: 1fr; }
+  /* Keep statbar as three columns on very small phones; allow horizontal scroll */
+  .statbar{ grid-template-columns: repeat(3, 1fr); overflow-x:auto; }
 }
 
 /* ===== PATCH: outlines + native select + compact Reset (appended) ===== */
