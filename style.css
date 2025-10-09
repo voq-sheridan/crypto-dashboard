@@ -409,5 +409,18 @@ select{
       line-height: 1;
       padding: .3rem .6rem;          /* compact so it looks right */
     }
+
+    /* Desktop-only: make the first controls row display as 2 columns
+       so the date & range move below Base & Quote while keeping
+       the DOM unchanged. This targets the first .row inside .controls. */
+    section.card[aria-labelledby="exploreHead"] .controls > .row:first-of-type{
+      grid-template-columns: repeat(2, 1fr); /* 2-up on desktop */
+      gap:12px;
+    }
+
+    /* Ensure subsequent rows remain 4-up for action controls */
+    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(2){
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
   
