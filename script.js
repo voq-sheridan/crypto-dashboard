@@ -243,9 +243,8 @@ function renderConversion(){
 
   els.conversion.innerHTML = `
     <div class="stat">
-      <h3>Today • ${today}</h3>
+      <h3>Rate as of: ${today}</h3>
       <p>1 ${state.base} = <strong>${rate4}</strong> ${state.quote}</p>
-      <p class="notice">Pair: ${pair}</p>
     </div>
     <div class="stat">
       <h3>Real effective rate <span class="muted">(-${fmt(state.feePct)}%)</span></h3>
