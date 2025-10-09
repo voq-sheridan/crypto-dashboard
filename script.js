@@ -237,17 +237,21 @@ function renderConversion(){
   const feeFactor = Math.max(0, 1 - (state.feePct/100));
   const effectiveRate = r * feeFactor;
   const out = state.amount * effectiveRate;
+  const today = state.latest?.date || new Date().toISOString().slice(0,10);
+  const rate4 = (Number(r) || 0).toFixed(4);
+  const pair = `${state.base}/${state.quote}`;
 
   els.conversion.innerHTML = `
     <div class="stat">
-      <h3>Live mid-market</h3>
-      <p>1 ${state.base} = <strong>${fmt(r)}</strong> ${state.quote}</p>
+      <h3>Today • ${today}</h3>
+      <p>1 ${state.base} = <strong>${rate4}</strong> ${state.quote}</p>
+      <p class="notice">Pair: ${pair}</p>
     </div>
     <div class="stat">
       <h3>Real effective rate <span class="muted">(-${fmt(state.feePct)}%)</span></h3>
       <p>1 ${state.base} ≈ <strong>${fmt(effectiveRate)}</strong> ${state.quote}</p>
     </div>
-    <div class="stat">
+    <div class="stat converted">
       <h3>Converted amount</h3>
       <p><strong>${fmt(out)}</strong> ${state.quote} <span class="muted">for ${fmt(state.amount)} ${state.base}</span></p>
     </div>

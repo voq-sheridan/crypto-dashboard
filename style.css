@@ -229,6 +229,13 @@ button.ghost{
 .stat h3{ font:600 12px/1 system-ui; color:var(--muted); margin:0 0 6px; }
 .stat p{ margin:0; font:700 18px/1.2 system-ui; }
 
+/* Make the converted amount number larger for emphasis */
+.stat.converted p strong{
+  font-size: 125%; /* 25% larger than surrounding text */
+  display:inline-block;
+  line-height:1;
+}
+
 .muted{ color:var(--muted); }
 .flex{ display:flex; align-items:center; gap:10px; }
 .favorites{ display:flex; flex-wrap:wrap; gap:8px; }
