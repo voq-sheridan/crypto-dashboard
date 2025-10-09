@@ -19,7 +19,6 @@ const els = {
   statbar: document.querySelector('#statbar'),
   chart: document.querySelector('#chart'),
   conversion: document.querySelector('#conversion'),
-  favorites: document.querySelector('#favorites'),
   reset: document.querySelector('#resetApp'),
   app: document.querySelector('#app'),
 };
@@ -32,7 +31,6 @@ const state = {
   date: '',
   amount: 100,
   feePct: 2.5,
-  favorites: loadFavorites(),
   series: [],
   latest: null,
   historical: null,
@@ -76,7 +74,6 @@ async function init(){
 
   // Initial load
   await refreshAll();
-  renderFavorites();
 }
 
 /* ---------------- Fetch ---------------- */
@@ -141,7 +138,6 @@ function syncControlsFromState(){
   els.date.value = state.date;
   els.amount.value = String(state.amount);
   els.fee.value = String(state.feePct);
-  updateFavStar();
 }
 
 async function refreshAll(){
@@ -153,7 +149,6 @@ async function refreshAll(){
   renderRateCards();
   renderStatsAndChart();
   renderConversion();
-  updateFavStar();
 }
 
 function renderRateCards(){
@@ -221,13 +216,15 @@ function renderConversion(){
   const pair = `${state.base}/${state.quote}`;
 
   els.conversion.innerHTML = `
-    <div class="stat">
-      <h3>Rate as of: ${today}</h3>
-      <p>1 ${state.base} = <strong>${rate4}</strong> ${state.quote}</p>
-    </div>
-    <div class="stat converted">
-      <h3>Converted amount</h3>
-      <p><strong>${fmt(out)}</strong> ${state.quote} <span class="muted"></span></p>
+    <div class="row">
+      <div class="stat">
+        <h3>Rate as of: ${today}</h3>
+        <p>1 ${state.base} = <strong>${rate4}</strong> ${state.quote}</p>
+      </div>
+      <div class="stat converted">
+        <h3>Converted amount</h3>
+        <p><strong>${fmt(out)}</strong> ${state.quote} <span class="muted"></span></p>
+      </div>
     </div>
   `;
 }
@@ -253,47 +250,6 @@ function daysArray(startDate, endDate){
     d.setDate(d.getDate()+1);
   }
   return out;
-}
-
-function loadFavorites(){
-  try{ return JSON.parse(localStorage.getItem('fx-favorites') || '[]'); }catch{ return []; }
-}
-function saveFavorites(){
-  localStorage.setItem('fx-favorites', JSON.stringify(state.favorites));
-}
-function pairKey(){ return `${state.base}/${state.quote}`; }
-
-function updateFavStar(){
-  const key = pairKey();
-  const on = state.favorites.includes(key);
-  // No dedicated fav toggle button anymore; the favorites list reflects saved pairs.
-}
-
-function toggleFavorite(){
-  const key = pairKey();
-  const i = state.favorites.indexOf(key);
-  if (i >= 0) state.favorites.splice(i,1);
-  else state.favorites.push(key);
-  saveFavorites(); updateFavStar(); renderFavorites();
-}
-
-function renderFavorites(){
-  if (!state.favorites.length){
-    els.favorites.innerHTML = `<span class="muted">No favorites yet. Click the ★ to save a pair.</span>`;
-    return;
-  }
-  els.favorites.innerHTML = state.favorites.map(k => {
-    const [b,q] = k.split('/');
-    return `<button class="pill" data-b="${b}" data-q="${q}" aria-label="Load favorite ${k}">${k}</button>`;
-  }).join('');
-  els.favorites.querySelectorAll('button').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      state.base = btn.dataset.b;
-      state.quote = btn.dataset.q;
-      syncControlsFromState(); await refreshAll();
-      els.app.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-  });
 }
 // THEME TOGGLE (no text, just knob + labels)
 const themeToggle = document.getElementById('theme-toggle');
