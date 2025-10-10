@@ -247,7 +247,7 @@ button.ghost{
 .muted{ color:var(--muted); }
 .flex{ display:flex; align-items:center; gap:10px; }
 .favorites{ display:flex; flex-wrap:wrap; gap:8px; }
-.pill{ padding:8px 12px; border-radius:999px; border:1px solid rgb(97 97 97 / 37%); background:rgba(255,255,255,.03); }
+.pill{ padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); }
 .star{ cursor:pointer; user-select:none; font-size:20px; line-height:1; }
 .star[aria-pressed="true"]{ color:#ffd166; text-shadow:0 1px 6px rgba(255,209,102,.4); }
 .notice{ font-size:13px; color:var(--muted); }
@@ -497,8 +497,7 @@ select{
        (Base/Quote, Amount/Fee, Date/Range). Keep the last row (actions)
        as 4-up so buttons align to the right. */
     section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(1),
-    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(2),
-    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(3){
+    section.card[aria-labelledby="exploreHead"] .controls > .row:nth-of-type(2){
       grid-template-columns: repeat(2, 1fr);
       gap:10px;
     }
