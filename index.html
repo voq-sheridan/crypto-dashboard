@@ -34,7 +34,6 @@
         <div class="section-header">
           <h2 id="exploreHead">Currency Converter</h2>
           <div class="header-actions">
-            <button id="swap" class="pill" aria-label="Swap base and quote"><span aria-hidden="true">⇄</span> Swap</button>
             <button id="resetApp" class="pill btn-outline" aria-label="Reset to defaults">Reset</button>
           </div>
         </div>
@@ -42,13 +41,20 @@
         <!-- Controls -->
         <div class="controls">
           <div class="row">
-            <div>
-              <label for="base">From</label>
-              <select id="base" name="base" aria-label="Base currency"></select>
-            </div>
-            <div>
-              <label for="quote">To</label>
-              <select id="quote" name="quote" aria-label="Quote currency"></select>
+            <div class="converter-group">
+              <div>
+                <label for="base">From</label>
+                <select id="base" name="base" aria-label="Base currency"></select>
+              </div>
+
+              <div class="swap-row">
+                <button id="swap" class="pill swap-btn" aria-label="Swap base and quote"><span aria-hidden="true">⇄</span></button>
+              </div>
+
+              <div>
+                <label for="quote">To</label>
+                <select id="quote" name="quote" aria-label="Quote currency"></select>
+              </div>
             </div>
           </div>
 
