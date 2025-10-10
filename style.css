@@ -496,7 +496,7 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
   /* Desktop: align labels horizontally with inputs for the top controls row */
   @media (min-width: 901px){
     section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type > div{
-      display:flex; align-items:center; gap:12px; padding-bottom: 20px;
+      display:flex; align-items:center; gap:12px; padding-bottom: 20px; padding-left: 0;
     }
     section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type > div > label{
       margin:0; white-space:nowrap; min-width:72px; color:var(--muted);
