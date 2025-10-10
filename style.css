@@ -286,8 +286,8 @@ button.ghost{
 @media (max-width: 600px){
   /* slightly reduced sizes on small screens to avoid overlap */
   .chart-wrap svg{ font-size: 14px; }
-  .chart-wrap svg text{ font-size: 14px; }
-  .chart-wrap svg text[text-anchor="middle"]{ font-size: 13px; }
+  .chart-wrap svg text{ font-size: 30px; }
+  .chart-wrap svg text[text-anchor="middle"]{ font-size: 30px; }
 }
 
 footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
