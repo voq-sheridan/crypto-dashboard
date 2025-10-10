@@ -45,6 +45,9 @@ html, body { height: 100%; }
   --accent: var(--color-accent);
   --accent-2: var(--color-secondary);
   --ring: var(--color-ring);
+  /* Swap button sizing tokens (desktop default) */
+  --swap-size: 56px;
+  --swap-icon-size: 20px;
 }
 
 [data-theme="dark"]{
@@ -336,14 +339,38 @@ select:focus{
   align-items:stretch; /* make selects stretch full width of the parent */
 }
 .converter-group > .swap-row{ display:flex; justify-content:center; }
-.swap-btn{ min-width:44px; height:44px; padding:8px; border-radius:10px; border:1px solid rgba(10,37,64,0.06); background:var(--panel); color:var(--text); }
+.swap-btn{
+  width: var(--swap-size);
+  height: var(--swap-size);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 0;
+  border-radius: 12px; /* keep pill/capsule feel; change to 50% for circular */
+  font-size: var(--swap-icon-size);
+  line-height:1;
+  border: 1px solid rgba(10,37,64,0.08);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  box-shadow: 0 6px 18px rgba(10,37,64,0.04);
+}
+
+.swap-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(10,37,64,0.06); }
+.swap-btn:active { transform: translateY(0) scale(.98); }
+.swap-btn:focus { outline: none; box-shadow: 0 0 0 4px rgba(0,168,107,0.14); }
+
+@media (max-width: 600px) {
+  :root { --swap-size: 48px; --swap-icon-size: 18px; }
+  .swap-btn { width: var(--swap-size); height: var(--swap-size); font-size: var(--swap-icon-size); }
+}
 
 /* Ensure row layout doesn't break: keep converter-group full width in its grid cell */
 .row .converter-group{ width:100%; box-sizing:border-box; }
 
 @media (min-width: 901px){
   /* On wide screens keep the vertical stack but limit its max width for balance */
-  .converter-group{ max-width:420px; }
 }
 
 label{
