@@ -64,7 +64,7 @@
               <input id="amount" type="number" inputmode="decimal" min="0" value="100" step="0.01" />
             </div>
             <div>
-              <label for="fee">Fee %</label>
+              <label for="fee">Fee (%) </br>(optional)</label>
               <input id="fee" type="number" inputmode="decimal" min="0" value="2.5" step="0.1" />
             </div>
 
@@ -80,13 +80,13 @@
       <!-- RIGHT: Conversion + Trends + Favorites -->
       <aside class="card" aria-labelledby="trendsHead">
        
-        <h2 id="trendsHead">Trends &amp; Stats</h2>
+        <h2 id="trendsHead">Rate Insights</h2>
 
         <!-- Moved: Historical date & Trend window inputs -->
         <div class="controls">
           <div class="row">
             <div>
-              <label for="date">Pick a date for historical rate</label>
+              <label for="date">Select a date to view historical rate</label>
               <input id="date" type="date" aria-label="" />
             </div>
           </div>
@@ -99,7 +99,7 @@
         <div class="controls">
           <div class="row">
             <div>
-              <label for="range">Trend window</label>
+              <label for="range">Rate Trends</label>
               <select id="range" aria-label="Select time window">
                 <option value="7">Last 7 days</option>
                 <option value="30">Last 30 days</option>
