@@ -201,8 +201,8 @@ function renderStatsAndChart(){
 
   els.statbar.innerHTML = `
     ${stat('High', fmt(hi))}
-    ${stat('Low', fmt(lo))}
-    ${stat('Avg', fmt(avg))}
+    ${stat('Low', fmt3(lo))}
+    ${stat('Avg', fmt3(avg))}
   `;
   function stat(label, val){ return `<div class="stat"><h3>${label}</h3><p>${val}</p></div>`; }
 
@@ -320,6 +320,12 @@ function fmt2(n){
   const val = Number(n);
   if (Number.isNaN(val)) return '—';
   return new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(val);
+}
+
+function fmt3(n){
+  const val = Number(n);
+  if (Number.isNaN(val)) return '—';
+  return new Intl.NumberFormat(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 }).format(val);
 }
 
 function daysArray(startDate, endDate){
