@@ -210,6 +210,8 @@ function renderStatsAndChart(){
   const dPath = state.series.map((p,i) => `${i?'L':'M'}${xs(i)},${ys(p.v)}`).join(' ');
   const gridY = [lo, avg, hi].map(v => ({ y: ys(v), label: fmt(v) }));
   // Build x-axis ticks (dates) and y-axis ticks (numeric rates)
+  // Local formatter for chart axis values (2 decimal places)
+  const fmt2 = n => (Number(n) || 0).toFixed(2);
   const xTickCount = Math.min(8, state.series.length);
   const step = Math.max(1, Math.floor((state.series.length - 1) / (xTickCount - 1)));
   const tickIdx = [];
@@ -238,7 +240,7 @@ function renderStatsAndChart(){
     const y = ys(v);
     return `<g transform="translate(0,${y})">` +
              `<line x1="${M.left}" x2="${W-M.right}" stroke="rgba(255,255,255,0.06)" />` +
-             `<text x="${M.left-12}" y="12" text-anchor="end">${fmt(v)}</text>` +
+             `<text x="${M.left-12}" y="12" text-anchor="end">${fmt2(v)}</text>` +
            `</g>`;
   }).join('');
 
