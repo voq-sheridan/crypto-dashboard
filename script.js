@@ -31,7 +31,7 @@ const state = {
   rangeDays: 30,
   date: '',
   amount: 100,
-  feePct: 2.5,
+  feePct: 0,
   series: [],
   latest: null,
   historical: null,
@@ -53,6 +53,10 @@ async function init(){
 
   syncControlsFromState();
 
+  // Load persisted fee percentage if present
+  const savedFee = localStorage.getItem('feePct');
+  if (savedFee !== null){ state.feePct = Number(savedFee) || 0; els.fee.value = String(state.feePct); }
+
   // Events
   els.base.addEventListener('change', onPairChange);
   els.quote.addEventListener('change', onPairChange);
@@ -72,6 +76,9 @@ async function init(){
     Object.assign(state, { base:'USD', quote:'CAD', rangeDays:30, date:'', amount:100, feePct:2.5 });
     syncControlsFromState(); await refreshAll();
   });
+
+  // Persist fee on change
+  els.fee.addEventListener('change', (e) => { localStorage.setItem('feePct', String(state.feePct)); });
 
   // Initial load
   await refreshAll();
