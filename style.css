@@ -330,8 +330,8 @@ select:focus{
    - spacing: 1rem (16px) between elements
 */
 .converter-group{
-  display:flex;
-  flex-direction:column;
+  /* display:flex; */
+  /* flex-direction:column; */
   gap:1rem; /* 1rem = 16px */
   align-items:stretch; /* make selects stretch full width of the parent */
 }
