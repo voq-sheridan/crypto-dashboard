@@ -164,7 +164,7 @@ p, li, dd{ color: var(--text); line-height:1.45; }
   gap:18px;
 }
 
-a{ color:var(--accent); }
+a{ color:var(--color-secondary); }
 
 /* ------------------ Hero ------------------ */
 /* (Remove any global `header { justify-content:flex-end }` rules) */
@@ -419,6 +419,7 @@ button.ghost{
   font-size: 125%; /* 25% larger than surrounding text */
   display:inline-block;
   line-height:1;
+  color: #009EBC;
 }
 
 .muted{ color:var(--muted); }
