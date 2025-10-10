@@ -222,9 +222,14 @@ function renderStatsAndChart(){
     const x = xs(i);
     const label = fmtDate(state.series[i].d);
     const y = M.top + plotH;
+  // Date label vertical padding (distance from axis line)
+  // Read from CSS variable --chart-date-label-offset (fallback to 26)
+  const style = getComputedStyle(document.querySelector('.chart-wrap'));
+  const cssOffset = parseInt(style.getPropertyValue('--chart-date-label-offset')) || 26;
+  const dateLabelOffset = cssOffset;
     return `<g transform="translate(${x},0)">` +
              `<line y1="${y-6}" y2="${y}" stroke="var(--muted)" stroke-width="1" />` +
-             `<text y="${y+18}" text-anchor="middle">${label}</text>` +
+             `<text y="${y + dateLabelOffset}" text-anchor="middle">${label}</text>` +
            `</g>`;
   }).join('');
 
@@ -233,7 +238,7 @@ function renderStatsAndChart(){
     const y = ys(v);
     return `<g transform="translate(0,${y})">` +
              `<line x1="${M.left}" x2="${W-M.right}" stroke="rgba(255,255,255,0.06)" />` +
-             `<text x="${M.left-12}" y="4" text-anchor="end">${fmt(v)}</text>` +
+             `<text x="${M.left-12}" y="12" text-anchor="end">${fmt(v)}</text>` +
            `</g>`;
   }).join('');
 

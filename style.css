@@ -266,13 +266,13 @@ button.ghost{
 }
 .chart-wrap svg text{
   fill: var(--text);        /* higher contrast for axis numbers */
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 300;
 }
 /* x-axis (centered) labels slightly smaller so they fit under ticks */
 .chart-wrap svg text[text-anchor="middle"]{
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 300;
   fill: var(--muted);
 }
 .chart-wrap svg line{
