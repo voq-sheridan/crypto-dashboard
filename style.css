@@ -110,7 +110,7 @@ header p{ margin:0; color:var(--muted); }
 .pill{
   padding:.5rem 1rem;
   border-radius:999px;
-  font-weight:600;
+  font-weight:200;
   white-space:nowrap;
   cursor:pointer;
   transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s;
@@ -129,7 +129,7 @@ header p{ margin:0; color:var(--muted); }
 .btn-outline{
   --accent: var(--accent, #0ea5e9);
   color: var(--accent);
-  background: transparent;
+  background: blue;
   border: 2px solid var(--accent);
 }
 .btn-outline:hover{
@@ -198,8 +198,8 @@ select:focus{
 .row > *{ min-width:0; }
 
 label{
-  font-weight:600; font-size:13px; color:var(--muted);
-  display:block; margin-bottom:6px;
+  font-weight:500; font-size:18px; color:var(--muted);
+  display:block; margin:8px;
 }
 
 input, select, button{
@@ -247,7 +247,7 @@ button.ghost{
 .muted{ color:var(--muted); }
 .flex{ display:flex; align-items:center; gap:10px; }
 .favorites{ display:flex; flex-wrap:wrap; gap:8px; }
-.pill{ padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); }
+.pill{ padding:8px 12px; border-radius:999px; border:1px solid rgb(97 97 97 / 37%); background:rgba(255,255,255,.03); }
 .star{ cursor:pointer; user-select:none; font-size:20px; line-height:1; }
 .star[aria-pressed="true"]{ color:#ffd166; text-shadow:0 1px 6px rgba(255,209,102,.4); }
 .notice{ font-size:13px; color:var(--muted); }
@@ -289,7 +289,7 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
     }
     section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type > div > label{
       margin:0; white-space:nowrap; min-width:72px; color:var(--muted);
-      font-weight:600; font-size:13px;
+      font-weight:500; font-size:20px;
     }
     section.card[aria-labelledby="exploreHead"] .controls .row:first-of-type > div > select{
       flex:1 1 auto; min-width:0;
@@ -300,7 +300,7 @@ footer{ opacity:.8; color:var(--muted); text-align:center; margin-top:12px; }
     }
     section.card[aria-labelledby="exploreHead"] .controls .row:nth-of-type(2) > div > label{
       margin:0; white-space:nowrap; min-width:72px; color:var(--muted);
-      font-weight:600; font-size:13px;
+      font-weight:500; font-size:20px;
     }
     section.card[aria-labelledby="exploreHead"] .controls .row:nth-of-type(2) > div > input{
       flex:1 1 auto; min-width:0;
@@ -409,7 +409,7 @@ select{
   padding:.4rem .6rem;
   background:var(--panel);
   color:var(--text);
-  font-size:.95rem;
+  font-size:1.25rem;
   width:100%;
   box-sizing:border-box;
   transition:border-color .2s, box-shadow .2s;
