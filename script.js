@@ -177,7 +177,6 @@ function renderRateCards(){
         <div class="row">
           <div class="stat">
             <p>1 ${state.base} = <strong>${Number(latestRate).toFixed(4)}</strong> ${state.quote}</p>
-            <p class="muted">${latestDate}</p>
           </div>
         </div>
       `;
@@ -206,6 +205,32 @@ function renderStatsAndChart(){
   const ys = (v) => hi === lo ? H/2 : H - P - ((v - lo) * (H - 2*P) / (hi - lo));
   const dPath = state.series.map((p,i) => `${i?'L':'M'}${xs(i)},${ys(p.v)}`).join(' ');
   const gridY = [lo, avg, hi].map(v => ({ y: ys(v), label: fmt(v) }));
+  // Build x-axis ticks (dates) and y-axis ticks (numeric rates)
+  const xTickCount = Math.min(8, state.series.length);
+  const step = Math.max(1, Math.floor((state.series.length - 1) / (xTickCount - 1)));
+  const tickIdx = [];
+  for (let i = 0; i < state.series.length; i += step) tickIdx.push(i);
+  if (tickIdx[tickIdx.length - 1] !== state.series.length - 1) tickIdx.push(state.series.length - 1);
+
+  const fmtDate = d => { const dt = new Date(d); return `${dt.getMonth()+1}/${dt.getDate()}`; };
+
+  const xTicks = tickIdx.map(i => {
+    const x = xs(i);
+    const label = fmtDate(state.series[i].d);
+    return `<g transform="translate(${x},0)">` +
+             `<line y1="${H-P-6}" y2="${H-P}" stroke="var(--muted)" stroke-width="1" />` +
+             `<text y="${H-P+16}" text-anchor="middle">${label}</text>` +
+           `</g>`;
+  }).join('');
+
+  const yTicksVals = [hi, (hi+lo)/2, lo];
+  const yTicks = yTicksVals.map(v => {
+    const y = ys(v);
+    return `<g transform="translate(0,${y})">` +
+             `<line x1="${P}" x2="${W-P}" stroke="rgba(255,255,255,0.06)" />` +
+             `<text x="${P-8}" y="4" text-anchor="end">${fmt(v)}</text>` +
+           `</g>`;
+  }).join('');
 
   els.chart.innerHTML = `
     <defs>
@@ -214,16 +239,19 @@ function renderStatsAndChart(){
         <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
       </linearGradient>
     </defs>
-    <g stroke="rgba(255,255,255,.15)" stroke-width="1">
-      ${gridY.map(g => `<line x1="${P}" y1="${g.y}" x2="${W-P}" y2="${g.y}" />`).join('')}
+    <!-- faint horizontal grid lines and y labels -->
+    <g font-size="12" fill="var(--muted)">
+      ${yTicks}
     </g>
     <g fill="currentColor" style="color: var(--accent)">
       <path d="${dPath}" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="${dPath} L ${W-P},${H-P} L ${P},${H-P} Z" fill="url(#g)" />
       ${dotAtValue(hi)} ${dotAtValue(lo)}
     </g>
-    <g font-size="12" fill="var(--muted)">
-      ${gridY.map((g,i)=> `<text x="${W-P+6}" y="${g.y-4}">${['Low','Avg','High'][i]} ${g.label}</text>`).join('')}
+    <!-- x axis and ticks -->
+    <g stroke="var(--muted)" fill="var(--muted)" font-size="12">
+      <line x1="${P}" y1="${H-P}" x2="${W-P}" y2="${H-P}" />
+      ${xTicks}
     </g>
   `;
   function dotAtValue(val){
