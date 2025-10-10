@@ -200,9 +200,13 @@ function renderStatsAndChart(){
   function stat(label, val){ return `<div class="stat"><h3>${label}</h3><p>${val}</p></div>`; }
 
   // SVG sparkline
-  const W = 1000, H = 300, P = 36;
-  const xs = (i) => P + (i*(W-2*P))/(state.series.length-1 || 1);
-  const ys = (v) => hi === lo ? H/2 : H - P - ((v - lo) * (H - 2*P) / (hi - lo));
+  const W = 1000, H = 300;
+  // margins: give extra left space for y-axis labels and bottom for x labels
+  const M = { left: 80, right: 36, top: 20, bottom: 60 };
+  const plotW = W - M.left - M.right;
+  const plotH = H - M.top - M.bottom;
+  const xs = (i) => M.left + (i * (plotW) / (state.series.length - 1 || 1));
+  const ys = (v) => hi === lo ? (M.top + plotH/2) : (M.top + plotH - ((v - lo) * plotH / (hi - lo)));
   const dPath = state.series.map((p,i) => `${i?'L':'M'}${xs(i)},${ys(p.v)}`).join(' ');
   const gridY = [lo, avg, hi].map(v => ({ y: ys(v), label: fmt(v) }));
   // Build x-axis ticks (dates) and y-axis ticks (numeric rates)
@@ -217,9 +221,10 @@ function renderStatsAndChart(){
   const xTicks = tickIdx.map(i => {
     const x = xs(i);
     const label = fmtDate(state.series[i].d);
+    const y = M.top + plotH;
     return `<g transform="translate(${x},0)">` +
-             `<line y1="${H-P-6}" y2="${H-P}" stroke="var(--muted)" stroke-width="1" />` +
-             `<text y="${H-P+16}" text-anchor="middle">${label}</text>` +
+             `<line y1="${y-6}" y2="${y}" stroke="var(--muted)" stroke-width="1" />` +
+             `<text y="${y+18}" text-anchor="middle">${label}</text>` +
            `</g>`;
   }).join('');
 
@@ -227,8 +232,8 @@ function renderStatsAndChart(){
   const yTicks = yTicksVals.map(v => {
     const y = ys(v);
     return `<g transform="translate(0,${y})">` +
-             `<line x1="${P}" x2="${W-P}" stroke="rgba(255,255,255,0.06)" />` +
-             `<text x="${P-8}" y="4" text-anchor="end">${fmt(v)}</text>` +
+             `<line x1="${M.left}" x2="${W-M.right}" stroke="rgba(255,255,255,0.06)" />` +
+             `<text x="${M.left-12}" y="4" text-anchor="end">${fmt(v)}</text>` +
            `</g>`;
   }).join('');
 
@@ -245,12 +250,12 @@ function renderStatsAndChart(){
     </g>
     <g fill="currentColor" style="color: var(--accent)">
       <path d="${dPath}" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="${dPath} L ${W-P},${H-P} L ${P},${H-P} Z" fill="url(#g)" />
+      <path d="${dPath} L ${M.left+plotW},${M.top+plotH} L ${M.left},${M.top+plotH} Z" fill="url(#g)" />
       ${dotAtValue(hi)} ${dotAtValue(lo)}
     </g>
     <!-- x axis and ticks -->
     <g stroke="var(--muted)" fill="var(--muted)" font-size="12">
-      <line x1="${P}" y1="${H-P}" x2="${W-P}" y2="${H-P}" />
+      <line x1="${M.left}" y1="${M.top+plotH}" x2="${M.left+plotW}" y2="${M.top+plotH}" />
       ${xTicks}
     </g>
   `;
