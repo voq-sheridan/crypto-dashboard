@@ -290,7 +290,7 @@ function renderConversion(){
       </div>
       <div class="stat converted">
         <h3>Converted amount</h3>
-        <p><strong>${fmt(out)}</strong> ${state.quote} <span class="muted"></span></p>
+            <p><strong>${fmt2(out)}</strong> ${state.quote} <span class="muted"></span></p>
       </div>
     </div>
   `;
@@ -307,6 +307,12 @@ function fmt(n){
   const val = Number(n);
   if (Number.isNaN(val)) return '—';
   return new Intl.NumberFormat(undefined, { maximumFractionDigits: 6 }).format(val);
+}
+
+function fmt2(n){
+  const val = Number(n);
+  if (Number.isNaN(val)) return '—';
+  return new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(val);
 }
 
 function daysArray(startDate, endDate){
