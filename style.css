@@ -3,11 +3,48 @@
 html, body { height: 100%; }
 
 :root {
-  /* Theme tokens (light) */
-  --bg:#ffffff; --text:#0b0d12; --header-bg:#f7fbff;
-  --panel:#ffffff; --ink:#0b0d12; --muted:#445266;
-  --accent:#0068ff; --accent-2:#009e66; --ring:#5aa7ff;
-  --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.12);
+  /* ------------------------------------------------------------------
+     Design tokens — Light mode color palette (fintech / trustworthy)
+     Each token has a short comment describing its purpose.
+     ------------------------------------------------------------------ */
+
+  /* Brand / core */
+  --color-primary:  #0A2540; /* Primary (trust) — brand/nav/header color */
+  --color-accent:   #00A86B; /* Accent (growth) — primary action, CTA */
+  --color-secondary:#009EBC; /* Secondary (energy) — supporting actions, highlights */
+
+  /* Surface & text */
+  --color-background:#F5F7FA; /* Page background */
+  --color-surface:   #FFFFFF; /* Panels, cards, inputs */
+  --color-text:      #1A1A1A; /* Main body text */
+  --color-muted:     #6B7280; /* Muted text, labels, helper copy */
+
+  /* Status */
+  --color-error:   #E53E3E; /* Errors, destructive */
+  --color-warning: #F59E0B; /* Warnings */
+  --color-success: #16A34A; /* Success / positive */
+
+  /* Interaction shades (small set derived from accent / secondary) */
+  --color-accent-400: #28BF87; /* lighter accent for hover */
+  --color-accent-600: #008A54; /* darker accent for active */
+  --color-secondary-400: #2FB7CF;
+  --color-secondary-600: #008A9A;
+
+  /* Utility: focus / ring color (subtle outline for keyboard focus) */
+  --color-ring: rgba(10,37,64,0.14);
+
+  /* Layout tokens */
+  --radius: 12px;                         /* card / control radius */
+  --shadow: 0 10px 30px rgba(10,37,64,0.08);
+
+  /* Compatibility / legacy tokens used in the existing CSS — map to new tokens */
+  --bg: var(--color-background);
+  --panel: var(--color-surface);
+  --text: var(--color-text);
+  --muted: var(--color-muted);
+  --accent: var(--color-accent);
+  --accent-2: var(--color-secondary);
+  --ring: var(--color-ring);
 }
 
 [data-theme="dark"]{
@@ -23,6 +60,97 @@ body, html {
   color:var(--text);
   transition: background-color .3s, color .3s;
 }
+
+/* ------------------------------------------------------------------
+   Theme primitives & components
+   - Use the design tokens defined in :root to style high-level layout
+   - Keep styles semantic and accessible (sufficient contrast + focus states)
+   ------------------------------------------------------------------ */
+
+/* Page structure */
+header, main, footer {
+  display:block;
+}
+
+header.hero{
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-secondary) 6%, transparent), transparent 40%), var(--panel);
+  border: 1px solid rgba(10,37,64,0.04);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+main{
+  background: transparent;
+  color: var(--text);
+}
+
+footer{
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Cards / panels */
+.card{
+  background: var(--panel);
+  border: 1px solid rgba(10,37,64,0.04);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Buttons: base + variants */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding: 10px 14px; border-radius: 10rem; font-weight:600; cursor:pointer;
+  border: none; color: var(--panel); background: var(--accent); transition: transform .06s ease, box-shadow .12s ease, background-color .12s ease;
+}
+.btn:focus{ outline: none; box-shadow: 0 6px 18px var(--color-ring); }
+
+/* Primary button — uses accent */
+.btn-primary{
+  background: linear-gradient(180deg, var(--color-accent), var(--color-accent-600));
+  color: white; border: none;
+}
+.btn-primary:hover{ background: linear-gradient(180deg, var(--color-accent-400), var(--color-accent)); transform: translateY(-1px); }
+.btn-primary:active{ background: linear-gradient(180deg, var(--color-accent-600), var(--color-accent-600)); transform: translateY(0); }
+.btn-primary:focus-visible{ box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 12%, transparent); }
+
+/* Secondary / ghost */
+.btn-ghost{ background: transparent; color: var(--color-primary); border: 1px solid rgba(10,37,64,0.06); }
+.btn-ghost:hover{ background: rgba(10,37,64,0.03); }
+
+/* Accessible small variants */
+.btn-small{ padding:6px 10px; font-size:.95rem; border-radius:8px; }
+
+/* Text hierarchy */
+h1, h2, h3, h4, h5{ color: var(--text); margin:0 0 .3rem 0; }
+h1{ font-size: clamp(24px, 4.2vw, 40px); }
+h2{ font-size: clamp(18px, 2.6vw, 26px); }
+h3{ font-size: 18px; color: var(--color-primary); }
+p, li, dd{ color: var(--text); line-height:1.45; }
+.muted, .label, small{ color: var(--muted); }
+
+/* Status colors (useful in charts & inline badges) */
+.text-error{ color: var(--color-error); }
+.text-warning{ color: var(--color-warning); }
+.text-success{ color: var(--color-success); }
+
+/* Utilities: quick classes for background & text using tokens */
+.bg-primary{ background-color: var(--color-primary); color: white; }
+.bg-accent{ background-color: var(--color-accent); color: white; }
+.bg-surface{ background-color: var(--panel); }
+.text-primary{ color: var(--color-primary); }
+.text-accent{ color: var(--color-accent); }
+.text-muted{ color: var(--muted); }
+.border-muted{ border-color: rgba(10,37,64,0.06); }
+
+/* Icon / small badge */
+.badge{ display:inline-flex; align-items:center; gap:6px; padding:6px 8px; border-radius:999px; background:rgba(10,37,64,0.03); color:var(--color-primary); font-weight:600; }
+
+/* Accessible focus helpers for interactive elements (keyboard visible) */
+:focus:not(:focus-visible){ box-shadow:none; }
+
 
 /* ------------------ Page Frame ------------------ */
 .wrapper{
@@ -230,10 +358,11 @@ button.ghost{
 
 .statbar{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
 .stat{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
+  background: transparent;
+  border: none; /* remove outline */
   border-radius:12px; padding:12px;
 }
+.stat.converted{ background: transparent; border: none; }
 .stat h3{ font:200 20px/1 system-ui/1 system-ui; color:var(--muted); margin:6px 0 6px; }
 .stat p{ margin:0; font:500 25px/1.2 system-ui; padding: 5px 0 5px; }
 

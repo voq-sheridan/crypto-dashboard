@@ -32,7 +32,7 @@
       <!-- LEFT: Exploration + Daily/Historical -->
       <section class="card explore-card" aria-labelledby="exploreHead">
         <div class="section-header">
-          <h2 id="exploreHead">Explore &amp; Visualize</h2>
+          <h2 id="exploreHead">Currency Converter</h2>
           <div class="header-actions">
             <button id="swap" class="pill" aria-label="Swap base and quote"><span aria-hidden="true">⇄</span> Swap</button>
             <button id="resetApp" class="pill btn-outline" aria-label="Reset to defaults">Reset</button>
@@ -61,24 +61,14 @@
               <label for="fee">Fee %</label>
               <input id="fee" type="number" inputmode="decimal" min="0" value="2.5" step="0.1" />
             </div>
-          </div>
 
-          <div class="row">
-          </div>
-
-          <div class="row">
-            <div></div>
-              <div class="flex" style="justify-content:flex-end; align-self:end">
-                <!-- favorite toggle removed; favorites are managed via the Favorite Pairs list -->
-              </div>
-          </div>
-        </div>
-
-        <!-- Convert with Real Effective Rate -->
+             <!-- Convert with Real Effective Rate -->
         <div id="rateCards" class="row" aria-live="polite"></div>
         
-        <h2 id="convertHead" style="margin-top:6px">Convert with Real Effective Rate</h2>
+        <!-- <h2 id="convertHead" style="margin-top:6px">Convert with Real Effective Rate</h2> -->
          <div id="conversion" class="controls"></div>
+          </div>
+       
       </section>
 
       <!-- RIGHT: Conversion + Trends + Favorites -->
